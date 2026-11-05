@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Город Кубиконов — интерактивный сайт · 6 класс</title>
+<meta name="description" content="Атомы и молекулы, простые и сложные вещества. Интерактив для Естествознания 6 класса (Казахстан), цель 6.3.1.1"/>
+<style>
+:root{
+  --terr:#C24B2A; --indigo:#243B6B; --amber:#F0A202; --teal:#0D7377;
+  --sand:#FFF8F0; --cream:#FFF1E0; --ink:#2B2118; --muted:#6B5A4A;
+  --ok:#1B7A4E; --bad:#B42318; --card:#fff;
+}
+*{box-sizing:border-box} body{margin:0;font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;background:var(--sand);color:var(--ink);line-height:1.45}
+a{color:var(--teal);font-weight:700}
+header{background:linear-gradient(120deg,var(--indigo),#3a568f 55%,var(--terr));color:#fff;padding:28px 20px 36px}
+header .wrap{max-width:1100px;margin:0 auto}
+header h1{margin:8px 0;font-size:clamp(28px,4vw,42px)}
+header p{opacity:.95;margin:0}
+nav.top{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+nav.top a{background:#fff2;color:#fff;text-decoration:none;padding:8px 14px;border-radius:999px;font-size:14px}
+nav.top a:hover{background:#fff3}
+.wrap{max-width:1100px;margin:0 auto;padding:20px}
+section{background:var(--card);border:2px solid #E2D2C0;border-radius:18px;padding:22px;margin:18px 0;box-shadow:0 6px 18px rgba(43,33,24,.06)}
+h2{margin:0 0 12px;color:var(--terr);font-size:26px}
+h3{margin:14px 0 8px;color:var(--indigo);font-size:20px}
+.badge{display:inline-block;background:var(--indigo);color:#fff;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.grid{display:grid;gap:14px} .g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--cream);border:1px solid #E2D2C0;border-radius:14px;padding:14px}
+.atom{display:inline-flex;width:44px;height:44px;border-radius:12px;align-items:center;justify-content:center;color:#fff;font-weight:800;margin:3px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.15)}
+.H{background:#5B8DEF}.O{background:#E85D4C}.C{background:#4A4A4A}.N{background:#7B5EA7}
+.Fe{background:#8B6914}.S{background:#E8C547;color:#2B2118}.Na{background:#2AA198}.Cl{background:#3D9B6A}
+.btn{appearance:none;border:0;background:var(--terr);color:#fff;font-weight:800;padding:10px 16px;border-radius:12px;cursor:pointer;font-size:15px}
+.btn.sec{background:#fff;color:var(--indigo);border:2px solid var(--indigo)}
+.btn.teal{background:var(--teal)}
+.btn:disabled{opacity:.6;cursor:default}
+.pool,.zone{min-height:70px;padding:10px;border-radius:12px;border:2px dashed #C8B8A8;background:#fff9;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.zone{min-height:120px}
+.zone.over{border-color:var(--teal);background:#E4F3F2}
+.chip{padding:8px 12px;background:#fff;border:2px solid var(--indigo);border-radius:10px;cursor:grab;font-weight:700;user-select:none}
+.chip.locked{cursor:default;opacity:.9}
+.feedback{font-weight:800;margin-top:10px;min-height:24px}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+.qopt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:10px;border:2px solid #E2D2C0;background:#fff;cursor:pointer;font-size:15px}
+.qopt.ok{background:#EAF7EF;border-color:var(--ok)}
+.qopt.bad{background:#FDECEC;border-color:var(--bad)}
+#builderCanvas{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:64px;padding:12px;border:2px solid var(--indigo);border-radius:14px;background:#fff}
+.palette button{margin:4px}
+footer{max-width:1100px;margin:10px auto 40px;padding:0 20px;color:var(--muted);font-size:13px}
+.qr{width:120px;height:120px;border-radius:12px;border:2px solid #E2D2C0}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tabs button{appearance:none;border:2px solid #E2D2C0;background:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;font-weight:700;color:var(--indigo)}
+.tabs button.on{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+.molrow{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin:8px 0}
+.bond{width:14px;height:5px;background:#8A7A6A;border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border:1px solid #E2D2C0;padding:8px;text-align:left}
+th{background:var(--indigo);color:#fff}
+tr:nth-child(even) td{background:var(--cream)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <span class="badge">Естествознание · 6 класс · 6.3.1.1</span>
+    <h1>Город Кубиконов</h1>
+    <p>Интерактив: теория · сортировка · конструктор молекул · квиз. Учитель: Хмель С. С., КГУ «Гимназия №1», Караганда.</p>
+    <nav class="top">
+      <a href="#theory">Теория</a>
+      <a href="#sort">Сортировка</a>
+      <a href="#builder">Конструктор</a>
+      <a href="#quiz">Квиз</a>
+      <a href="presentation.html">Презентация</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<section id="theory">
+  <h2>1. Теория агента строения</h2>
+  <div class="tabs" id="theoryTabs">
+    <button type="button" class="on" data-tab="t1">Атом</button>
+    <button type="button" data-tab="t2">Молекула</button>
+    <button type="button" data-tab="t3">Простое</button>
+    <button type="button" data-tab="t4">Сложное</button>
+  </div>
+  <div id="t1" class="tabpan">
+    <div class="card"><p><b>Атом</b> — наименьшая частица химического элемента. В городе это <b>один кубик</b>.</p>
+    <p><span class="atom H">H</span><span class="atom O">O</span><span class="atom Fe">Fe</span></p></div>
+  </div>
+  <div id="t2" class="tabpan" hidden>
+    <div class="card"><p><b>Молекула</b> — наименьшая частица вещества, способная существовать самостоятельно; построена из атомов (собранная фигурка).</p>
+    <div class="molrow"><span class="atom O">O</span><span class="bond"></span><span class="atom O">O</span> → O₂</div>
+    <div class="molrow"><span class="atom H">H</span><span class="bond"></span><span class="atom O">O</span><span class="bond"></span><span class="atom H">H</span> → H₂O</div></div>
+  </div>
+  <div id="t3" class="tabpan" hidden>
+    <div class="card"><p><b>Простое вещество</b> — из атомов <u>одного</u> вида (один цвет кубиков): O₂, N₂, Fe, S, H₂.</p></div>
+  </div>
+  <div id="t4" class="tabpan" hidden>
+    <div class="card"><p><b>Сложное вещество</b> — из атомов <u>разных</u> видов (разные цвета): H₂O, CO₂, NaCl.</p></div>
+  </div>
+  <h3>Сводка</h3>
+  <table>
+    <tr><th></th><th>Атом</th><th>Молекула</th><th>Простое</th><th>Сложное</th></tr>
+    <tr><td>Модель</td><td>1 кубик</td><td>фигурка</td><td>1 цвет</td><td>разные цвета</td></tr>
+    <tr><td>Пример</td><td>Fe</td><td>H₂O</td><td>O₂</td><td>CO₂</td></tr>
+  </table>
+  <h3>Видео</h3>
+  <div class="grid g2">
+    <div>
+      <iframe width="100%" height="220" style="border:0;border-radius:12px" src="https://www.youtube-nocookie.com/embed/Jaren6yQFgY?rel=0" title="МЕКТЕП OnLine" allowfullscreen loading="lazy"></iframe>
+      <p><a href="https://www.youtube.com/watch?v=Jaren6yQFgY" target="_blank" rel="noopener">Запасная ссылка YouTube</a></p>
+    </div>
+    <div>
+      <iframe width="100%" height="220" style="border:0;border-radius:12px" src="https://www.youtube-nocookie.com/embed/ugkdkI1c0P0?rel=0" title="За минуту" allowfullscreen loading="lazy"></iframe>
+      <p><a href="https://www.youtube.com/watch?v=ugkdkI1c0P0" target="_blank" rel="noopener">Запасная ссылка YouTube</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="sort">
+  <h2>2. Игра: сортировка груза</h2>
+  <p>Перетащи карточки в карманы «Атом / Молекула» или переключи режим на «Простое / Сложное».</p>
+  <div class="tabs" id="sortMode">
+    <button type="button" class="on" data-mode="am">Атом ↔ Молекула</button>
+    <button type="button" data-mode="sc">Простое ↔ Сложное</button>
+  </div>
+  <p><b>Пул карточек</b></p>
+  <div class="pool" id="sortPool"></div>
+  <div class="grid g2" style="margin-top:12px">
+    <div><h3 id="z1title">Атом</h3><div class="zone" id="zone1" data-accept="atom"></div></div>
+    <div><h3 id="z2title">Молекула</h3><div class="zone" id="zone2" data-accept="molecule"></div></div>
+  </div>
+  <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+    <button type="button" class="btn" id="sortCheck">Проверить</button>
+    <button type="button" class="btn sec" id="sortReset">Сброс</button>
+    <span class="feedback" id="sortFb"></span>
+  </div>
+</section>
+
+<section id="builder">
+  <h2>3. Конструктор молекул</h2>
+  <p>Нажимай кубики-атомы, чтобы собрать формулу. Цель показана справа.</p>
+  <div class="grid g2">
+    <div>
+      <div class="palette" id="palette"></div>
+      <div id="builderCanvas" style="margin-top:10px"></div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="btn sec" id="bUndo">⌫ Отмена</button>
+        <button type="button" class="btn sec" id="bClear">Очистить</button>
+        <button type="button" class="btn teal" id="bCheck">Проверить сборку</button>
+      </div>
+      <div class="feedback" id="bFb"></div>
+    </div>
+    <div class="card">
+      <h3>Задание</h3>
+      <p id="bTarget">Собери: …</p>
+      <button type="button" class="btn" id="bNext">Следующая цель</button>
+      <p style="margin-top:12px;font-size:14px;color:var(--muted)">Счёт: <b id="bScore">0</b></p>
+    </div>
+  </div>
+</section>
+
+<section id="quiz">
+  <h2>4. Квиз с мгновенной обратной связью</h2>
+  <div id="quizBox" class="card"></div>
+</section>
+
+<section>
+  <h2>Материалы урока</h2>
+  <div class="grid g2">
+    <div class="card">
+      <p><a href="presentation.html">Открыть HTML-презентацию</a> (1920×1080, клавиши ← →, таймеры, квиз)</p>
+      <p>QR-код сайта:</p>
+      <img class="qr" src="qr-site.png" alt="QR код сайта Город Кубиконов"/>
+    </div>
+    <div class="card">
+      <p><b>Цель 6.3.1.1</b> — различать атомы и молекулы, простые и сложные вещества.</p>
+      <p>Максимум за урок: <b>10 баллов</b> (дескрипторы A–D в КСП и ключе раздатке).</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <p>© Концепция «Город Кубиконов» — оригинальная разработка для урока. Хмель Светлана Сергеевна · КГУ «Гимназия №1», г. Караганда · 2026.</p>
+  <p>Видео встроены через youtube-nocookie; при блокировке iframe используйте запасные ссылки.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
