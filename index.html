@@ -3,68 +3,95 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Город Кубиконов — интерактивный сайт · 6 класс</title>
-<meta name="description" content="Атомы и молекулы, простые и сложные вещества. Интерактив для Естествознания 6 класса (Казахстан), цель 6.3.1.1"/>
+<title>Булькоград — интерактив · атомы и молекулы · 6 класс</title>
+<meta name="description" content="Мульт-урок: Губкин, Звёздик, Крабич. Цель 6.3.1.1"/>
 <style>
-:root{
-  --terr:#C24B2A; --indigo:#243B6B; --amber:#F0A202; --teal:#0D7377;
-  --sand:#FFF8F0; --cream:#FFF1E0; --ink:#2B2118; --muted:#6B5A4A;
-  --ok:#1B7A4E; --bad:#B42318; --card:#fff;
-}
-*{box-sizing:border-box} body{margin:0;font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;background:var(--sand);color:var(--ink);line-height:1.45}
-a{color:var(--teal);font-weight:700}
-header{background:linear-gradient(120deg,var(--indigo),#3a568f 55%,var(--terr));color:#fff;padding:28px 20px 36px}
-header .wrap{max-width:1100px;margin:0 auto}
-header h1{margin:8px 0;font-size:clamp(28px,4vw,42px)}
-header p{opacity:.95;margin:0}
-nav.top{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-nav.top a{background:#fff2;color:#fff;text-decoration:none;padding:8px 14px;border-radius:999px;font-size:14px}
-nav.top a:hover{background:#fff3}
-.wrap{max-width:1100px;margin:0 auto;padding:20px}
-section{background:var(--card);border:2px solid #E2D2C0;border-radius:18px;padding:22px;margin:18px 0;box-shadow:0 6px 18px rgba(43,33,24,.06)}
-h2{margin:0 0 12px;color:var(--terr);font-size:26px}
-h3{margin:14px 0 8px;color:var(--indigo);font-size:20px}
-.badge{display:inline-block;background:var(--indigo);color:#fff;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
-.grid{display:grid;gap:14px} .g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.card{background:var(--cream);border:1px solid #E2D2C0;border-radius:14px;padding:14px}
-.atom{display:inline-flex;width:44px;height:44px;border-radius:12px;align-items:center;justify-content:center;color:#fff;font-weight:800;margin:3px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.15)}
+:root{--sea:#0077BE;--deep:#0A4D68;--yel:#FFD93D;--coral:#FF6B6B;--teal:#4ECDC4;--sand:#FFF8E7;--ink:#0A2A3A;--ok:#1B7A4E;--bad:#B42318;--cream:#E8F7FF}
+*{box-sizing:border-box} body{margin:0;font-family:"Comic Sans MS","Trebuchet MS",cursive,system-ui,sans-serif;background:linear-gradient(180deg,#E8F7FF,#4FC3F7 40%,#0077BE);color:var(--ink);min-height:100vh;line-height:1.45}
+a{color:var(--deep);font-weight:800}
+header{background:linear-gradient(120deg,#0A4D68,#0077BE 50%,#FF6B6B);color:#fff;padding:24px 16px 32px;position:relative;overflow:hidden}
+header .wrap{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+header h1{margin:8px 0;font-size:clamp(26px,4vw,40px);text-shadow:2px 2px 0 #0A2A3A}
+nav.top{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+nav.top a{background:#FFD93D;color:var(--deep);text-decoration:none;padding:8px 14px;border-radius:999px;font-size:14px;font-weight:800;border:2px solid #fff}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+section{background:rgba(255,248,231,.95);border:4px solid #fff;border-radius:20px;padding:18px;margin:14px 0;box-shadow:0 6px 0 rgba(10,77,104,.25)}
+h2{margin:0 0 10px;color:var(--deep);font-size:24px}
+h3{margin:12px 0 6px;color:var(--sea);font-size:18px}
+.badge{display:inline-block;background:var(--yel);color:var(--deep);padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800;border:2px solid #fff}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--cream);border:2px solid #fff;border-radius:14px;padding:12px}
+.atom{display:inline-flex;width:40px;height:40px;border-radius:50%;align-items:center;justify-content:center;color:#fff;font-weight:800;margin:2px;border:2px solid #fff}
 .H{background:#5B8DEF}.O{background:#E85D4C}.C{background:#4A4A4A}.N{background:#7B5EA7}
-.Fe{background:#8B6914}.S{background:#E8C547;color:#2B2118}.Na{background:#2AA198}.Cl{background:#3D9B6A}
-.btn{appearance:none;border:0;background:var(--terr);color:#fff;font-weight:800;padding:10px 16px;border-radius:12px;cursor:pointer;font-size:15px}
-.btn.sec{background:#fff;color:var(--indigo);border:2px solid var(--indigo)}
-.btn.teal{background:var(--teal)}
-.btn:disabled{opacity:.6;cursor:default}
-.pool,.zone{min-height:70px;padding:10px;border-radius:12px;border:2px dashed #C8B8A8;background:#fff9;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
-.zone{min-height:120px}
-.zone.over{border-color:var(--teal);background:#E4F3F2}
-.chip{padding:8px 12px;background:#fff;border:2px solid var(--indigo);border-radius:10px;cursor:grab;font-weight:700;user-select:none}
-.chip.locked{cursor:default;opacity:.9}
-.feedback{font-weight:800;margin-top:10px;min-height:24px}
-.ok{color:var(--ok)}.bad{color:var(--bad)}
-.qopt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:10px;border:2px solid #E2D2C0;background:#fff;cursor:pointer;font-size:15px}
-.qopt.ok{background:#EAF7EF;border-color:var(--ok)}
-.qopt.bad{background:#FDECEC;border-color:var(--bad)}
-#builderCanvas{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:64px;padding:12px;border:2px solid var(--indigo);border-radius:14px;background:#fff}
-.palette button{margin:4px}
-footer{max-width:1100px;margin:10px auto 40px;padding:0 20px;color:var(--muted);font-size:13px}
-.qr{width:120px;height:120px;border-radius:12px;border:2px solid #E2D2C0}
-.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.tabs button{appearance:none;border:2px solid #E2D2C0;background:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;font-weight:700;color:var(--indigo)}
-.tabs button.on{background:var(--indigo);color:#fff;border-color:var(--indigo)}
-.molrow{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin:8px 0}
-.bond{width:14px;height:5px;background:#8A7A6A;border-radius:3px}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{border:1px solid #E2D2C0;padding:8px;text-align:left}
-th{background:var(--indigo);color:#fff}
-tr:nth-child(even) td{background:var(--cream)}
+.btn{appearance:none;border:3px solid #fff;background:var(--coral);color:#fff;font-weight:800;padding:10px 14px;border-radius:12px;cursor:pointer;font-size:14px;box-shadow:0 3px 0 #CC4444}
+.btn.sec{background:var(--yel);color:var(--deep);box-shadow:0 3px 0 #E0B000}
+.btn.teal{background:var(--teal);color:var(--deep);box-shadow:0 3px 0 #2A9A92}
+.pool,.zone{min-height:64px;padding:8px;border-radius:12px;border:3px dashed var(--sea);background:#fff9;display:flex;flex-wrap:wrap;gap:6px}
+.zone{min-height:100px}.zone.over{background:#A8F0EA;border-color:var(--yel)}
+.chip{padding:8px 10px;background:#fff;border:2px solid var(--deep);border-radius:10px;cursor:grab;font-weight:800;user-select:none}
+.chip.locked{cursor:default}
+.feedback{font-weight:800;margin-top:8px;min-height:22px}.ok{color:var(--ok)}.bad{color:var(--bad)}
+.qopt{display:block;width:100%;text-align:left;margin:5px 0;padding:10px;border-radius:10px;border:2px solid var(--deep);background:#fff;cursor:pointer;font-size:14px;font-weight:700}
+.qopt.ok{background:#D4EDDA;border-color:var(--ok)}.qopt.bad{background:#F8D7DA;border-color:var(--bad)}
+#builderCanvas{display:flex;flex-wrap:wrap;gap:4px;align-items:center;min-height:56px;padding:10px;border:3px solid var(--sea);border-radius:14px;background:#fff}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tabs button{appearance:none;border:2px solid var(--sea);background:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;font-weight:800;color:var(--deep)}
+.tabs button.on{background:var(--yel);border-color:#fff}
+.speech{background:#fff;border:3px solid var(--deep);border-radius:16px;padding:10px 14px;font-weight:700;display:inline-block;box-shadow:3px 3px 0 var(--yel);margin:6px 0}
+.bond{width:12px;height:4px;background:var(--deep);border-radius:2px}
+.molrow{display:flex;align-items:center;gap:3px;flex-wrap:wrap;margin:6px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{border:2px solid var(--teal);padding:6px} th{background:var(--deep);color:#fff}
+footer{max-width:1100px;margin:8px auto 36px;padding:0 16px;color:#0A4D68;font-size:12px}
+.qr{width:110px;height:110px;border-radius:12px;border:3px solid #fff;background:#fff}
+.chars{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
-    <span class="badge">Естествознание · 6 класс · 6.3.1.1</span>
-    <h1>Город Кубиконов</h1>
-    <p>Интерактив: теория · сортировка · конструктор молекул · квиз. Учитель: Хмель С. С., КГУ «Гимназия №1», Караганда.</p>
+    <span class="badge">6 класс · 6.3.1.1 · мульт-урок</span>
+    <h1>🫧 Булькоград</h1>
+    <p>Губкин, Звёздик и проф. Крабич зовут на помощь после аварии пузырьковой машины!</p>
+    <div class="chars" style="margin-top:10px"><svg class="char" viewBox="0 0 120 140" width="90" height="105" aria-label="Губкин" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="60" cy="130" rx="40" ry="8" fill="#000" opacity=".15"/>
+  <rect x="25" y="30" width="70" height="90" rx="12" fill="#FFD93D" stroke="#E0B000" stroke-width="3"/>
+  <ellipse cx="40" cy="55" rx="7" ry="5" fill="#E8C840"/><ellipse cx="75" cy="48" rx="6" ry="4" fill="#E8C840"/>
+  <ellipse cx="48" cy="85" rx="8" ry="5" fill="#E8C840"/><ellipse cx="78" cy="78" rx="6" ry="4" fill="#E8C840"/>
+  <ellipse cx="42" cy="105" rx="5" ry="3.5" fill="#E8C840"/><ellipse cx="70" cy="100" rx="7" ry="4" fill="#E8C840"/>
+  <circle cx="48" cy="58" r="12" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="72" cy="58" r="12" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="50" cy="60" r="5" fill="#0A2A3A"/><circle cx="74" cy="60" r="5" fill="#0A2A3A"/>
+  <circle cx="52" cy="58" r="2" fill="#fff"/><circle cx="76" cy="58" r="2" fill="#fff"/>
+  <path d="M48 82 Q60 95 72 82" fill="none" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"/>
+  <rect x="35" y="20" width="50" height="14" rx="4" fill="#4ECDC4" stroke="#0A4D68" stroke-width="2"/>
+  <text x="60" y="31" text-anchor="middle" font-size="9" font-family="Trebuchet MS,sans-serif" font-weight="700" fill="#0A4D68">лаб.</text>
+</svg><svg class="char" viewBox="0 0 120 140" width="90" height="105" aria-label="Звёздик" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="60" cy="130" rx="36" ry="7" fill="#000" opacity=".15"/>
+  <polygon points="60,8 70,42 106,42 77,64 88,100 60,78 32,100 43,64 14,42 50,42" fill="#FF8FAB" stroke="#E06080" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="50" cy="52" r="9" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="70" cy="52" r="9" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="52" cy="54" r="4" fill="#0A2A3A"/><circle cx="72" cy="54" r="4" fill="#0A2A3A"/>
+  <path d="M50 68 Q60 78 70 68" fill="none" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="42" cy="62" r="4" fill="#FF6B6B" opacity=".5"/><circle cx="78" cy="62" r="4" fill="#FF6B6B" opacity=".5"/>
+</svg><svg class="char" viewBox="0 0 140 120" width="100" height="86" aria-label="профессор Крабич" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="70" cy="110" rx="45" ry="7" fill="#000" opacity=".15"/>
+  <ellipse cx="28" cy="48" rx="18" ry="12" fill="#FF6B6B" stroke="#CC4444" stroke-width="2"/>
+  <ellipse cx="112" cy="48" rx="18" ry="12" fill="#FF6B6B" stroke="#CC4444" stroke-width="2"/>
+  <line x1="40" y1="48" x2="50" y2="55" stroke="#CC4444" stroke-width="3"/>
+  <line x1="100" y1="48" x2="90" y2="55" stroke="#CC4444" stroke-width="3"/>
+  <ellipse cx="70" cy="60" rx="38" ry="28" fill="#FF6B6B" stroke="#CC4444" stroke-width="3"/>
+  <circle cx="56" cy="55" r="12" fill="#E8F7FF" stroke="#0A4D68" stroke-width="3"/>
+  <circle cx="84" cy="55" r="12" fill="#E8F7FF" stroke="#0A4D68" stroke-width="3"/>
+  <line x1="68" y1="55" x2="72" y2="55" stroke="#0A4D68" stroke-width="3"/>
+  <circle cx="56" cy="56" r="4" fill="#0A2A3A"/><circle cx="84" cy="56" r="4" fill="#0A2A3A"/>
+  <path d="M58 72 Q70 82 82 72" fill="none" stroke="#0A2A3A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="48" y1="85" x2="42" y2="105" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="60" y1="88" x2="58" y2="108" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="80" y1="88" x2="82" y2="108" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="92" y1="85" x2="98" y2="105" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <rect x="55" y="28" width="30" height="10" rx="2" fill="#FFD93D" stroke="#E0B000" stroke-width="1.5"/>
+</svg></div>
     <nav class="top">
       <a href="#theory">Теория</a>
       <a href="#sort">Сортировка</a>
@@ -76,61 +103,46 @@ tr:nth-child(even) td{background:var(--cream)}
 </header>
 <main class="wrap">
 <section id="theory">
-  <h2>1. Теория агента строения</h2>
+  <h2>1. Теория от героев Булькограда</h2>
+  <div class="speech">«Один пузырь = атом, связка = молекула!» — Губкин</div>
   <div class="tabs" id="theoryTabs">
     <button type="button" class="on" data-tab="t1">Атом</button>
     <button type="button" data-tab="t2">Молекула</button>
     <button type="button" data-tab="t3">Простое</button>
     <button type="button" data-tab="t4">Сложное</button>
   </div>
-  <div id="t1" class="tabpan">
-    <div class="card"><p><b>Атом</b> — наименьшая частица химического элемента. В городе это <b>один кубик</b>.</p>
-    <p><span class="atom H">H</span><span class="atom O">O</span><span class="atom Fe">Fe</span></p></div>
-  </div>
-  <div id="t2" class="tabpan" hidden>
-    <div class="card"><p><b>Молекула</b> — наименьшая частица вещества, способная существовать самостоятельно; построена из атомов (собранная фигурка).</p>
+  <div id="t1" class="tabpan"><div class="card"><p><b>Атом</b> — наименьшая частица химического элемента.</p><p><span class="atom H">H</span><span class="atom O">O</span><span class="atom Fe">Fe</span></p></div></div>
+  <div id="t2" class="tabpan" hidden><div class="card"><p><b>Молекула</b> — наименьшая частица вещества из атомов.</p>
     <div class="molrow"><span class="atom O">O</span><span class="bond"></span><span class="atom O">O</span> → O₂</div>
-    <div class="molrow"><span class="atom H">H</span><span class="bond"></span><span class="atom O">O</span><span class="bond"></span><span class="atom H">H</span> → H₂O</div></div>
-  </div>
-  <div id="t3" class="tabpan" hidden>
-    <div class="card"><p><b>Простое вещество</b> — из атомов <u>одного</u> вида (один цвет кубиков): O₂, N₂, Fe, S, H₂.</p></div>
-  </div>
-  <div id="t4" class="tabpan" hidden>
-    <div class="card"><p><b>Сложное вещество</b> — из атомов <u>разных</u> видов (разные цвета): H₂O, CO₂, NaCl.</p></div>
-  </div>
-  <h3>Сводка</h3>
-  <table>
-    <tr><th></th><th>Атом</th><th>Молекула</th><th>Простое</th><th>Сложное</th></tr>
-    <tr><td>Модель</td><td>1 кубик</td><td>фигурка</td><td>1 цвет</td><td>разные цвета</td></tr>
-    <tr><td>Пример</td><td>Fe</td><td>H₂O</td><td>O₂</td><td>CO₂</td></tr>
-  </table>
+    <div class="molrow"><span class="atom H">H</span><span class="bond"></span><span class="atom O">O</span><span class="bond"></span><span class="atom H">H</span> → H₂O</div></div></div>
+  <div id="t3" class="tabpan" hidden><div class="card"><p><b>Простое</b> — атомы одного вида: O₂, N₂, Fe, S, H₂.</p></div></div>
+  <div id="t4" class="tabpan" hidden><div class="card"><p><b>Сложное</b> — атомы разных видов: H₂O, CO₂, NaCl.</p></div></div>
   <h3>Видео</h3>
   <div class="grid g2">
     <div>
-      <iframe width="100%" height="220" style="border:0;border-radius:12px" src="https://www.youtube-nocookie.com/embed/Jaren6yQFgY?rel=0" title="МЕКТЕП OnLine" allowfullscreen loading="lazy"></iframe>
-      <p><a href="https://www.youtube.com/watch?v=Jaren6yQFgY" target="_blank" rel="noopener">Запасная ссылка YouTube</a></p>
+      <iframe width="100%" height="200" style="border:0;border-radius:12px" src="https://www.youtube-nocookie.com/embed/Jaren6yQFgY?rel=0" allowfullscreen loading="lazy" title="МЕКТЕП"></iframe>
+      <p><a href="https://www.youtube.com/watch?v=Jaren6yQFgY" target="_blank" rel="noopener">Запасная ссылка</a></p>
     </div>
     <div>
-      <iframe width="100%" height="220" style="border:0;border-radius:12px" src="https://www.youtube-nocookie.com/embed/ugkdkI1c0P0?rel=0" title="За минуту" allowfullscreen loading="lazy"></iframe>
-      <p><a href="https://www.youtube.com/watch?v=ugkdkI1c0P0" target="_blank" rel="noopener">Запасная ссылка YouTube</a></p>
+      <iframe width="100%" height="200" style="border:0;border-radius:12px" src="https://www.youtube-nocookie.com/embed/ugkdkI1c0P0?rel=0" allowfullscreen loading="lazy" title="Минута"></iframe>
+      <p><a href="https://www.youtube.com/watch?v=ugkdkI1c0P0" target="_blank" rel="noopener">Запасная ссылка</a></p>
     </div>
   </div>
 </section>
 
 <section id="sort">
-  <h2>2. Игра: сортировка груза</h2>
-  <p>Перетащи карточки в карманы «Атом / Молекула» или переключи режим на «Простое / Сложное».</p>
+  <h2>2. Сортировка после аварии</h2>
   <div class="tabs" id="sortMode">
     <button type="button" class="on" data-mode="am">Атом ↔ Молекула</button>
     <button type="button" data-mode="sc">Простое ↔ Сложное</button>
   </div>
-  <p><b>Пул карточек</b></p>
+  <p><b>Пул</b></p>
   <div class="pool" id="sortPool"></div>
-  <div class="grid g2" style="margin-top:12px">
+  <div class="grid g2" style="margin-top:10px">
     <div><h3 id="z1title">Атом</h3><div class="zone" id="zone1" data-accept="atom"></div></div>
     <div><h3 id="z2title">Молекула</h3><div class="zone" id="zone2" data-accept="molecule"></div></div>
   </div>
-  <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+  <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
     <button type="button" class="btn" id="sortCheck">Проверить</button>
     <button type="button" class="btn sec" id="sortReset">Сброс</button>
     <span class="feedback" id="sortFb"></span>
@@ -138,51 +150,49 @@ tr:nth-child(even) td{background:var(--cream)}
 </section>
 
 <section id="builder">
-  <h2>3. Конструктор молекул</h2>
-  <p>Нажимай кубики-атомы, чтобы собрать формулу. Цель показана справа.</p>
+  <h2>3. Конструктор пузырьков</h2>
   <div class="grid g2">
     <div>
-      <div class="palette" id="palette"></div>
-      <div id="builderCanvas" style="margin-top:10px"></div>
-      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-        <button type="button" class="btn sec" id="bUndo">⌫ Отмена</button>
+      <div id="palette"></div>
+      <div id="builderCanvas" style="margin-top:8px"></div>
+      <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+        <button type="button" class="btn sec" id="bUndo">⌫</button>
         <button type="button" class="btn sec" id="bClear">Очистить</button>
-        <button type="button" class="btn teal" id="bCheck">Проверить сборку</button>
+        <button type="button" class="btn teal" id="bCheck">Проверить</button>
       </div>
       <div class="feedback" id="bFb"></div>
     </div>
     <div class="card">
-      <h3>Задание</h3>
+      <h3>Задание Звёздика</h3>
       <p id="bTarget">Собери: …</p>
       <button type="button" class="btn" id="bNext">Следующая цель</button>
-      <p style="margin-top:12px;font-size:14px;color:var(--muted)">Счёт: <b id="bScore">0</b></p>
+      <p style="margin-top:10px">Счёт: <b id="bScore">0</b></p>
     </div>
   </div>
 </section>
 
 <section id="quiz">
-  <h2>4. Квиз с мгновенной обратной связью</h2>
+  <h2>4. Квиз профессора Крабича</h2>
   <div id="quizBox" class="card"></div>
 </section>
 
 <section>
-  <h2>Материалы урока</h2>
+  <h2>Материалы</h2>
   <div class="grid g2">
     <div class="card">
-      <p><a href="presentation.html">Открыть HTML-презентацию</a> (1920×1080, клавиши ← →, таймеры, квиз)</p>
-      <p>QR-код сайта:</p>
-      <img class="qr" src="qr-site.png" alt="QR код сайта Город Кубиконов"/>
+      <p><a href="presentation.html">Мульт-презентация 1920×1080</a></p>
+      <p>QR сайта:</p>
+      <img class="qr" src="qr-site.png" alt="QR Булькоград"/>
     </div>
     <div class="card">
-      <p><b>Цель 6.3.1.1</b> — различать атомы и молекулы, простые и сложные вещества.</p>
-      <p>Максимум за урок: <b>10 баллов</b> (дескрипторы A–D в КСП и ключе раздатке).</p>
+      <p><b>6.3.1.1</b> · макс. 10 б · дескрипторы A–D</p>
+      <p>Герои: Губкин, Звёздик, Крабич — <b>оригинальные</b>.</p>
     </div>
   </div>
 </section>
 </main>
 <footer>
-  <p>© Концепция «Город Кубиконов» — оригинальная разработка для урока. Хмель Светлана Сергеевна · КГУ «Гимназия №1», г. Караганда · 2026.</p>
-  <p>Видео встроены через youtube-nocookie; при блокировке iframe используйте запасные ссылки.</p>
+  <p>© Булькоград — оригинальная разработка. Хмель С. С. · КГУ «Гимназия №1», Караганда · 2026. Не связано с чужими мультфраншизами.</p>
 </footer>
 <script src="app.js"></script>
 </body>

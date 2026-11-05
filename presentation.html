@@ -3,326 +3,433 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Город Кубиконов — Атомы и молекулы · 6 класс</title>
+<title>Булькоград — Атомы и молекулы · 6 класс</title>
 <style>
 :root{
-  --terr:#C24B2A; --indigo:#243B6B; --amber:#F0A202; --teal:#0D7377;
-  --sand:#FFF8F0; --cream:#FFF1E0; --ink:#2B2118; --muted:#6B5A4A;
-  --card:#FFFFFF; --ok:#1B7A4E; --bad:#B42318;
+  --sea:#0077BE; --deep:#0A4D68; --yel:#FFD93D; --coral:#FF6B6B; --teal:#4ECDC4;
+  --pink:#FF8FAB; --sand:#FFF8E7; --ink:#0A2A3A; --ok:#1B7A4E; --bad:#B42318;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;overflow:hidden;background:#1a1420;font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;color:var(--ink)}
-#stage{position:absolute;width:1920px;height:1080px;transform-origin:0 0;background:var(--sand)}
-.slide{position:absolute;inset:0;display:none;padding:48px 64px 100px;background:
-  radial-gradient(ellipse at 10% 0%, rgba(240,162,2,.18), transparent 45%),
-  radial-gradient(ellipse at 95% 100%, rgba(36,59,107,.12), transparent 40%),
-  linear-gradient(165deg, #FFF8F0 0%, #F5E6D3 55%, #EED9C4 100%)}
+html,body{width:100%;height:100%;overflow:hidden;background:#062536;font-family:"Comic Sans MS","Trebuchet MS",cursive,system-ui,sans-serif;color:var(--ink)}
+#stage{position:absolute;width:1920px;height:1080px;transform-origin:0 0;background:linear-gradient(180deg,#4FC3F7 0%,#0077BE 45%,#0A4D68 100%)}
+.slide{position:absolute;inset:0;display:none;padding:40px 56px 96px;overflow:hidden}
 .slide.active{display:flex;flex-direction:column}
-.badge{display:inline-flex;align-items:center;gap:8px;background:var(--indigo);color:#fff;padding:6px 14px;border-radius:999px;font-size:18px;font-weight:700;letter-spacing:.02em}
-.badge.amber{background:var(--amber);color:var(--ink)}
-.badge.teal{background:var(--teal)}
-.badge.terr{background:var(--terr)}
-h1{font-size:56px;line-height:1.15;color:var(--indigo);margin:12px 0 8px}
-h2{font-size:42px;line-height:1.2;color:var(--terr);margin:0 0 16px}
-h3{font-size:28px;color:var(--indigo);margin:0 0 10px}
-p,li{font-size:26px;line-height:1.35;color:var(--ink)}
-.sub{font-size:22px;color:var(--muted)}
-.row{display:flex;gap:24px;align-items:stretch}
-.col{flex:1}
-.card{background:var(--card);border:2px solid #E2D2C0;border-radius:20px;padding:22px 24px;box-shadow:0 8px 24px rgba(43,33,24,.08)}
-.card.accent{border-color:var(--terr);background:linear-gradient(180deg,#fff,#FFF1E0)}
-.card.indigo{border-color:var(--indigo);background:linear-gradient(180deg,#fff,#E8EEF8)}
-.card.teal{border-color:var(--teal);background:linear-gradient(180deg,#fff,#E4F3F2)}
+.slide > *{position:relative;z-index:1}
+
+.bubbles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.bubbles i{position:absolute;bottom:-40px;border-radius:50%;background:rgba(255,255,255,.35);border:2px solid rgba(255,255,255,.5);animation:up linear infinite}
+@keyframes up{0%{transform:translateY(0) scale(1);opacity:.7}100%{transform:translateY(-1200px) scale(1.4);opacity:0}}
+
+.badge{display:inline-flex;background:var(--yel);color:var(--deep);padding:6px 16px;border-radius:999px;font-size:18px;font-weight:800;border:3px solid #fff;box-shadow:0 4px 0 #E0B000}
+.badge.coral{background:var(--coral);color:#fff;box-shadow:0 4px 0 #CC4444}
+.badge.teal{background:var(--teal);color:var(--deep);box-shadow:0 4px 0 #2A9A92}
+h1{font-size:58px;line-height:1.1;color:#fff;text-shadow:3px 3px 0 var(--deep), 0 0 20px rgba(0,0,0,.2);margin:10px 0}
+h2{font-size:44px;line-height:1.15;color:#fff;text-shadow:2px 2px 0 var(--deep);margin:0 0 14px}
+h3{font-size:26px;color:var(--deep);margin:0 0 8px}
+p,li{font-size:24px;line-height:1.35}
+.sub{font-size:20px;color:#E8F7FF}
+.card{background:rgba(255,248,231,.95);border:4px solid #fff;border-radius:24px;padding:20px 22px;box-shadow:0 8px 0 rgba(10,77,104,.35)}
+.card.yel{background:linear-gradient(180deg,#FFE66D,#FFD93D);border-color:#fff}
+.card.coral{background:linear-gradient(180deg,#FFB4B4,#FF8A8A)}
+.card.teal{background:linear-gradient(180deg,#A8F0EA,#4ECDC4)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
-.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px}
-.pill{display:inline-block;background:var(--cream);border:1px solid #E2D2C0;border-radius:12px;padding:8px 14px;margin:4px;font-size:22px}
-.atom{display:inline-flex;width:64px;height:64px;border-radius:16px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:24px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15), 0 4px 10px rgba(0,0,0,.12);margin:4px}
-.atom.sm{width:48px;height:48px;font-size:18px;border-radius:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.row{display:flex;gap:20px;align-items:center}
+.speech{position:relative;background:#fff;border:3px solid var(--deep);border-radius:20px;padding:14px 18px;font-size:22px;font-weight:700;box-shadow:4px 4px 0 var(--yel)}
+.speech:after{content:"";position:absolute;left:28px;bottom:-14px;border:14px solid transparent;border-top-color:var(--deep)}
+.speech:before{content:"";position:absolute;left:30px;bottom:-10px;border:12px solid transparent;border-top-color:#fff;z-index:1}
+.atom{display:inline-flex;width:60px;height:60px;border-radius:50%;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:22px;border:3px solid #fff;box-shadow:0 4px 0 rgba(0,0,0,.2);margin:3px}
 .H{background:#5B8DEF}.O{background:#E85D4C}.C{background:#4A4A4A}.N{background:#7B5EA7}
-.Fe{background:#8B6914}.S{background:#E8C547;color:#2B2118}.Na{background:#2AA198}.Cl{background:#3D9B6A}
-.mol{display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:wrap;min-height:80px}
-.bond{width:18px;height:6px;background:#8A7A6A;border-radius:3px}
-.nav{position:absolute;left:0;right:0;bottom:0;height:72px;display:flex;align-items:center;gap:12px;padding:0 28px;background:linear-gradient(180deg,transparent,#2B2118ee);color:#fff;z-index:20}
-.nav button{appearance:none;border:0;background:#fff2;color:#fff;font:700 18px/1 "Trebuchet MS",sans-serif;padding:12px 18px;border-radius:12px;cursor:pointer}
-.nav button:hover{background:#fff3}
+.Fe{background:#8B6914}.S{background:#E8C547;color:#0A2A3A}.Na{background:#2AA198}.Cl{background:#3D9B6A}
+.mol{display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:center}
+.bond{width:16px;height:6px;background:#fff;border-radius:3px;box-shadow:0 2px 0 #0A4D68}
+.pill{display:inline-block;background:#fff;border:2px solid var(--deep);border-radius:999px;padding:6px 12px;margin:3px;font-size:20px;font-weight:700}
+.nav{position:absolute;left:0;right:0;bottom:0;height:72px;display:flex;align-items:center;gap:10px;padding:0 24px;background:linear-gradient(180deg,transparent,#0A2A3Add);color:#fff;z-index:20}
+.nav button{appearance:none;border:3px solid #fff;background:var(--yel);color:var(--deep);font:800 18px/1 "Trebuchet MS",sans-serif;padding:10px 16px;border-radius:14px;cursor:pointer;box-shadow:0 3px 0 #E0B000}
+.nav button:hover{transform:translateY(-2px)}
 .nav .grow{flex:1}
-#counter{font-size:18px;opacity:.9;min-width:90px;text-align:center}
-#barwrap{height:8px;background:#fff2;border-radius:99px;overflow:hidden;width:280px}
-#bar{height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--terr));border-radius:99px;transition:width .25s}
-.timer{display:inline-flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--indigo);border-radius:14px;padding:8px 12px}
-.timer .tv{font-size:28px;font-weight:800;color:var(--indigo);min-width:70px;text-align:center;font-variant-numeric:tabular-nums}
-.timer button{appearance:none;border:0;background:var(--indigo);color:#fff;border-radius:10px;padding:8px 12px;font-weight:700;cursor:pointer}
-.timer.run{border-color:var(--terr);background:#FFF1E0}
-.timer.run .tv{color:var(--terr)}
-.yt{width:100%;aspect-ratio:16/9;max-height:520px;border:0;border-radius:16px;background:#000}
-.ytbox{background:#1a1420;border-radius:18px;padding:12px;border:2px solid #E2D2C0}
-.fallback{margin-top:8px;font-size:18px}
-.fallback a{color:var(--teal);font-weight:700}
-.qbtn{display:block;width:100%;text-align:left;padding:14px 18px;margin:8px 0;border-radius:14px;border:2px solid #E2D2C0;background:#fff;font-size:22px;cursor:pointer;transition:.15s}
-.qbtn:hover{border-color:var(--indigo);transform:translateY(-1px)}
-.qbtn.ok{background:#EAF7EF;border-color:var(--ok);color:var(--ok);font-weight:700}
-.qbtn.bad{background:#FDECEC;border-color:var(--bad);color:var(--bad)}
-.qbtn:disabled{cursor:default;opacity:.95}
-.feedback{margin-top:10px;font-size:22px;font-weight:700;min-height:28px}
-.chip{display:inline-block;padding:6px 12px;border-radius:999px;background:var(--cream);border:1px dashed var(--terr);font-size:18px;margin:3px}
-#toc{display:none;position:absolute;inset:0;background:#2B2118cc;z-index:30;align-items:center;justify-content:center}
+#counter{font-size:18px;min-width:90px;text-align:center;font-weight:800}
+#barwrap{height:10px;background:#fff3;border-radius:99px;overflow:hidden;width:260px;border:2px solid #fff6}
+#bar{height:100%;width:0;background:linear-gradient(90deg,var(--yel),var(--coral));border-radius:99px;transition:width .25s}
+.timer{display:inline-flex;align-items:center;gap:10px;background:#fff;border:4px solid var(--yel);border-radius:16px;padding:8px 12px}
+.timer .tv{font-size:28px;font-weight:800;color:var(--deep);min-width:70px;text-align:center;font-variant-numeric:tabular-nums}
+.timer button{appearance:none;border:0;background:var(--sea);color:#fff;border-radius:10px;padding:8px 12px;font-weight:800;cursor:pointer}
+.timer.run{border-color:var(--coral)}
+.yt{width:100%;aspect-ratio:16/9;max-height:500px;border:0;border-radius:16px;background:#000}
+.ytbox{background:#0A2A3A;border-radius:20px;padding:12px;border:4px solid var(--yel)}
+.fallback{margin-top:8px;font-size:18px;color:#fff}
+.fallback a{color:var(--yel);font-weight:800}
+.qbtn{display:block;width:100%;text-align:left;padding:12px 16px;margin:7px 0;border-radius:14px;border:3px solid var(--deep);background:#fff;font-size:22px;cursor:pointer;font-weight:700}
+.qbtn:hover{background:var(--yel)}
+.qbtn.ok{background:#D4EDDA;border-color:var(--ok);color:var(--ok)}
+.qbtn.bad{background:#F8D7DA;border-color:var(--bad);color:var(--bad)}
+.qbtn:disabled{cursor:default}
+.feedback{margin-top:8px;font-size:22px;font-weight:800;min-height:28px}
+#toc{display:none;position:absolute;inset:0;background:#0A2A3Acc;z-index:30;align-items:center;justify-content:center}
 #toc.on{display:flex}
-#toc .panel{background:var(--sand);width:720px;max-height:80%;overflow:auto;border-radius:20px;padding:28px;border:3px solid var(--amber)}
+#toc .panel{background:var(--sand);width:720px;max-height:80%;overflow:auto;border-radius:24px;padding:28px;border:6px solid var(--yel)}
 #toc ol{margin:12px 0 0 28px}
-#toc li{font-size:22px;padding:8px 4px;cursor:pointer;border-radius:8px}
-#toc li:hover,#toc li.cur{background:var(--cream);color:var(--terr);font-weight:700}
-.conf{position:absolute;width:10px;height:10px;border-radius:2px;animation:fall 2s ease-in forwards;pointer-events:none}
-@keyframes fall{to{transform:translateY(420px) rotate(360deg);opacity:0}}
-.big{font-size:34px;font-weight:800;color:var(--indigo)}
-.rule{display:flex;gap:16px;align-items:center;background:#fff;border-left:8px solid var(--amber);padding:16px 20px;border-radius:12px;margin:10px 0}
-.footmeta{position:absolute;left:64px;bottom:84px;font-size:16px;color:var(--muted)}
-.logo{font-size:18px;font-weight:800;color:var(--terr);letter-spacing:.04em}
-.hero-cubes{display:flex;gap:10px;margin:16px 0}
-.hero-cubes .atom{width:88px;height:88px;font-size:32px;border-radius:20px}
-table.cmp{width:100%;border-collapse:collapse;font-size:22px}
-table.cmp th,table.cmp td{border:1.5px solid #E2D2C0;padding:12px 14px;text-align:left}
-table.cmp th{background:var(--indigo);color:#fff}
-table.cmp tr:nth-child(even) td{background:var(--cream)}
-.sort-board{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-height:280px}
-.dropzone{border:3px dashed #C8B8A8;border-radius:16px;padding:14px;min-height:240px;background:#fff9}
-.dropzone h4{font-size:22px;margin-bottom:8px;color:var(--indigo)}
-.dropzone.over{border-color:var(--teal);background:#E4F3F2}
-.drag{display:inline-block;padding:10px 14px;margin:6px;background:#fff;border:2px solid var(--indigo);border-radius:12px;cursor:grab;font-size:20px;font-weight:700;user-select:none}
-.drag.placed{opacity:.35;pointer-events:none}
-.score{font-size:24px;font-weight:800;color:var(--teal)}
+#toc li{font-size:22px;padding:8px 4px;cursor:pointer;border-radius:8px;font-weight:700}
+#toc li:hover,#toc li.cur{background:var(--yel);color:var(--deep)}
+.dropzone{border:4px dashed #fff;border-radius:18px;padding:12px;min-height:220px;background:rgba(255,255,255,.15)}
+.dropzone h4{font-size:22px;margin-bottom:8px;color:#fff;text-shadow:1px 1px 0 var(--deep)}
+.dropzone.over{background:rgba(78,205,196,.35);border-color:var(--yel)}
+.drag{display:inline-block;padding:10px 14px;margin:5px;background:#fff;border:3px solid var(--deep);border-radius:14px;cursor:grab;font-size:20px;font-weight:800;user-select:none;box-shadow:0 3px 0 var(--yel)}
+.score{font-size:24px;font-weight:800;color:#fff;text-shadow:1px 1px 0 var(--deep)}
+table.cmp{width:100%;border-collapse:collapse;font-size:22px;background:#fff;border-radius:12px;overflow:hidden}
+table.cmp th,table.cmp td{border:2px solid var(--teal);padding:10px 12px}
+table.cmp th{background:var(--deep);color:#fff}
+.chars{display:flex;gap:8px;align-items:flex-end;justify-content:center}
+.char{filter:drop-shadow(0 6px 0 rgba(0,0,0,.15))}
+.wave-title{letter-spacing:.02em}
 </style>
 </head>
 <body>
 <div id="stage">
-<section class="slide " data-title="Титул">
-<div class="logo">ГОРОД КУБИКОНОВ · ДЕТЕКТИВНО-КОНСТРУКТОРСКАЯ МАСТЕРСКАЯ</div>
-<span class="badge terr">Естествознание · 6 класс</span>
-<h1>Атомы и молекулы.<br/>Простые и сложные вещества</h1>
-<p class="sub">Цель обучения <b>6.3.1.1</b> — различать атомы и молекулы, простые и сложные вещества</p>
-<div class="hero-cubes">
-  <span class="atom H">H</span><span class="atom O">O</span><span class="atom C">C</span>
-  <span class="atom N">N</span><span class="atom Fe">Fe</span><span class="atom S">S</span>
+<section class="slide" data-title="Титул"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge coral">Естествознание · 6 класс · мульт-урок</span>
+<h1 class="wave-title">Булькоград:<br/>Атомы и молекулы!</h1>
+<p class="sub">Цель <b>6.3.1.1</b> — различать атомы и молекулы, простые и сложные вещества</p>
+<div class="chars" style="margin:12px 0"><svg class="char" viewBox="0 0 120 140" width="120" height="140" aria-label="Губкин" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="60" cy="130" rx="40" ry="8" fill="#000" opacity=".15"/>
+  <rect x="25" y="30" width="70" height="90" rx="12" fill="#FFD93D" stroke="#E0B000" stroke-width="3"/>
+  <ellipse cx="40" cy="55" rx="7" ry="5" fill="#E8C840"/><ellipse cx="75" cy="48" rx="6" ry="4" fill="#E8C840"/>
+  <ellipse cx="48" cy="85" rx="8" ry="5" fill="#E8C840"/><ellipse cx="78" cy="78" rx="6" ry="4" fill="#E8C840"/>
+  <ellipse cx="42" cy="105" rx="5" ry="3.5" fill="#E8C840"/><ellipse cx="70" cy="100" rx="7" ry="4" fill="#E8C840"/>
+  <circle cx="48" cy="58" r="12" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="72" cy="58" r="12" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="50" cy="60" r="5" fill="#0A2A3A"/><circle cx="74" cy="60" r="5" fill="#0A2A3A"/>
+  <circle cx="52" cy="58" r="2" fill="#fff"/><circle cx="76" cy="58" r="2" fill="#fff"/>
+  <path d="M48 82 Q60 95 72 82" fill="none" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"/>
+  <rect x="35" y="20" width="50" height="14" rx="4" fill="#4ECDC4" stroke="#0A4D68" stroke-width="2"/>
+  <text x="60" y="31" text-anchor="middle" font-size="9" font-family="Trebuchet MS,sans-serif" font-weight="700" fill="#0A4D68">лаб.</text>
+</svg><svg class="char" viewBox="0 0 120 140" width="120" height="140" aria-label="Звёздик" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="60" cy="130" rx="36" ry="7" fill="#000" opacity=".15"/>
+  <polygon points="60,8 70,42 106,42 77,64 88,100 60,78 32,100 43,64 14,42 50,42" fill="#FF8FAB" stroke="#E06080" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="50" cy="52" r="9" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="70" cy="52" r="9" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="52" cy="54" r="4" fill="#0A2A3A"/><circle cx="72" cy="54" r="4" fill="#0A2A3A"/>
+  <path d="M50 68 Q60 78 70 68" fill="none" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="42" cy="62" r="4" fill="#FF6B6B" opacity=".5"/><circle cx="78" cy="62" r="4" fill="#FF6B6B" opacity=".5"/>
+</svg><svg class="char" viewBox="0 0 140 120" width="140" height="120" aria-label="профессор Крабич" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="70" cy="110" rx="45" ry="7" fill="#000" opacity=".15"/>
+  <ellipse cx="28" cy="48" rx="18" ry="12" fill="#FF6B6B" stroke="#CC4444" stroke-width="2"/>
+  <ellipse cx="112" cy="48" rx="18" ry="12" fill="#FF6B6B" stroke="#CC4444" stroke-width="2"/>
+  <line x1="40" y1="48" x2="50" y2="55" stroke="#CC4444" stroke-width="3"/>
+  <line x1="100" y1="48" x2="90" y2="55" stroke="#CC4444" stroke-width="3"/>
+  <ellipse cx="70" cy="60" rx="38" ry="28" fill="#FF6B6B" stroke="#CC4444" stroke-width="3"/>
+  <circle cx="56" cy="55" r="12" fill="#E8F7FF" stroke="#0A4D68" stroke-width="3"/>
+  <circle cx="84" cy="55" r="12" fill="#E8F7FF" stroke="#0A4D68" stroke-width="3"/>
+  <line x1="68" y1="55" x2="72" y2="55" stroke="#0A4D68" stroke-width="3"/>
+  <circle cx="56" cy="56" r="4" fill="#0A2A3A"/><circle cx="84" cy="56" r="4" fill="#0A2A3A"/>
+  <path d="M58 72 Q70 82 82 72" fill="none" stroke="#0A2A3A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="48" y1="85" x2="42" y2="105" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="60" y1="88" x2="58" y2="108" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="80" y1="88" x2="82" y2="108" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="92" y1="85" x2="98" y2="105" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <rect x="55" y="28" width="30" height="10" rx="2" fill="#FFD93D" stroke="#E0B000" stroke-width="1.5"/>
+</svg></div>
+<div class="card yel" style="margin-top:auto">
+  <p><b>Хмель Светлана Сергеевна</b> · КГУ «Гимназия №1», Караганда</p>
+  <p style="font-size:18px">Герои оригинальные: <b>Губкин</b>, <b>Звёздик</b>, проф. <b>Крабич</b> · город <b>Булькоград</b></p>
 </div>
-<div class="card accent" style="margin-top:auto">
-  <p><b>Хмель Светлана Сергеевна</b> · КГУ «Гимназия №1», г. Караганда</p>
-  <p class="sub">Оригинальная концепция урока · без чужих персонажей · кубики = атомы</p>
-</div>
-</section><section class="slide " data-title="Миссия">
+</section><section class="slide" data-title="Авария!"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
 <span class="badge">Крючок · 0–5 мин</span>
-<h2>Груз на причале Кубиконов</h2>
+<h2>Пузырьковая машина взорвалась!</h2>
 <div class="grid2">
-  <div class="card indigo">
-    <h3>Что случилось?</h3>
-    <p>На причал прибыл запечатанный груз «неизвестных образцов». Без правильной сортировки городская мастерская не откроется.</p>
-    <div class="rule" style="margin-top:16px"><span class="big">?</span><div>Из чего сделаны вещества вокруг нас — из одиночных кубиков или из собранных фигурок?</div></div>
-  </div>
-  <div class="card accent">
-    <h3>Ты — агент строения</h3>
-    <ul style="margin-left:22px">
-      <li>различить <b>атом</b> и <b>молекулу</b>;</li>
-      <li>отделить <b>простые</b> вещества от <b>сложных</b>;</li>
-      <li>собрать модели из «кубиков»;</li>
-      <li>закрыть дело квизом (макс. <b>10 баллов</b>).</li>
-    </ul>
-  </div>
-</div>
-</section><section class="slide " data-title="Цели">
-<span class="badge teal">Цели урока</span>
-<h2>Что считаем успехом?</h2>
-<div class="grid3">
-  <div class="card"><h3>Все</h3><p>Различают атом и молекулу; называют примеры простых и сложных веществ.</p></div>
-  <div class="card accent"><h3>Большинство</h3><p>Моделируют O₂ и H₂O; сортируют карточки по категориям.</p></div>
-  <div class="card indigo"><h3>Некоторые</h3><p>Объясняют, почему O₂ простое, а H₂O сложное; пишут «паспорт образца».</p></div>
-</div>
-<div class="card teal" style="margin-top:18px">
-  <p><b>Критерии:</b> верные определения · классификация ≥4 веществ · ≥2 примера в каждой группе · модели с паспортом.</p>
-</div>
-</section><section class="slide " data-title="Атом">
-<span class="badge">Понятие 1</span>
-<h2>Атом = один кубик</h2>
-<div class="row">
-  <div class="col card accent">
-    <p class="big">Атом — наименьшая частица химического элемента.</p>
-    <p style="margin-top:12px">В Городе Кубиконов атом — это <b>один цветной кубик</b>. Один кубик железа, один кубик кислорода…</p>
-    <div class="hero-cubes" style="justify-content:center;margin-top:24px">
-      <span class="atom Fe">Fe</span>
-      <span class="atom O">O</span>
-      <span class="atom H">H</span>
-    </div>
-  </div>
-  <div class="col card">
-    <h3>Запомни</h3>
-    <ul style="margin-left:22px">
-      <li>атомы очень малы;</li>
-      <li>атомов разных видов немного (элементы);</li>
-      <li>часто атомы «не гуляют» поодиночке — соединяются.</li>
-    </ul>
-    <div class="rule"><b>Ритуал:</b> поднимите один кулак = «атом»!</div>
-  </div>
-</div>
-</section><section class="slide " data-title="Молекула">
-<span class="badge">Понятие 2</span>
-<h2>Молекула = собранная фигурка</h2>
-<div class="grid2">
-  <div class="card indigo">
-    <p class="big">Молекула — наименьшая частица вещества, способная существовать самостоятельно.</p>
-    <p style="margin-top:12px">Она построена из атомов — как фигурка из кубиков.</p>
+  <div>
+    <div class="speech">«Помогите! Все атомы перемешались!» — проф. Крабич</div>
+    <div class="chars" style="justify-content:flex-start;margin-top:12px"><svg class="char" viewBox="0 0 140 120" width="140" height="120" aria-label="профессор Крабич" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="70" cy="110" rx="45" ry="7" fill="#000" opacity=".15"/>
+  <ellipse cx="28" cy="48" rx="18" ry="12" fill="#FF6B6B" stroke="#CC4444" stroke-width="2"/>
+  <ellipse cx="112" cy="48" rx="18" ry="12" fill="#FF6B6B" stroke="#CC4444" stroke-width="2"/>
+  <line x1="40" y1="48" x2="50" y2="55" stroke="#CC4444" stroke-width="3"/>
+  <line x1="100" y1="48" x2="90" y2="55" stroke="#CC4444" stroke-width="3"/>
+  <ellipse cx="70" cy="60" rx="38" ry="28" fill="#FF6B6B" stroke="#CC4444" stroke-width="3"/>
+  <circle cx="56" cy="55" r="12" fill="#E8F7FF" stroke="#0A4D68" stroke-width="3"/>
+  <circle cx="84" cy="55" r="12" fill="#E8F7FF" stroke="#0A4D68" stroke-width="3"/>
+  <line x1="68" y1="55" x2="72" y2="55" stroke="#0A4D68" stroke-width="3"/>
+  <circle cx="56" cy="56" r="4" fill="#0A2A3A"/><circle cx="84" cy="56" r="4" fill="#0A2A3A"/>
+  <path d="M58 72 Q70 82 82 72" fill="none" stroke="#0A2A3A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="48" y1="85" x2="42" y2="105" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="60" y1="88" x2="58" y2="108" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="80" y1="88" x2="82" y2="108" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="92" y1="85" x2="98" y2="105" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <rect x="55" y="28" width="30" height="10" rx="2" fill="#FFD93D" stroke="#E0B000" stroke-width="1.5"/>
+</svg></div>
   </div>
   <div class="card">
-    <h3>Примеры моделей</h3>
-    <div class="mol"><span class="atom O">O</span><span class="bond"></span><span class="atom O">O</span><span class="pill">O₂</span></div>
-    <div class="mol" style="margin-top:12px"><span class="atom H">H</span><span class="bond"></span><span class="atom O">O</span><span class="bond"></span><span class="atom H">H</span><span class="pill">H₂O</span></div>
+    <h3>Миссия учеников</h3>
+    <ul style="margin-left:22px">
+      <li>отличить <b>атом</b> от <b>молекулы</b>;</li>
+      <li>разделить <b>простые</b> и <b>сложные</b> вещества;</li>
+      <li>собрать модели O₂, H₂O, CO₂;</li>
+      <li>сдать квиз (макс. <b>10 баллов</b>).</li>
+    </ul>
   </div>
 </div>
-<div class="rule"><b>Ритуал:</b> соедините два кулака = «молекула»!</div>
-</section><section class="slide " data-title="Видео 1">
-<span class="badge amber">Видео · МЕКТЕП OnLine</span>
-<h2>Атомы и молекулы. Простые и сложные вещества</h2>
-<div class="ytbox">
-  <iframe class="yt" src="https://www.youtube-nocookie.com/embed/Jaren6yQFgY?rel=0" title="МЕКТЕП OnLine: Атомы и молекулы" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-  <p class="fallback" style="color:#fff">Если ролик не открылся: <a href="https://www.youtube.com/watch?v=Jaren6yQFgY" target="_blank" rel="noopener">youtube.com/watch?v=Jaren6yQFgY</a></p>
+</section><section class="slide" data-title="Цели"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge teal">Цели урока</span>
+<h2>Что значит «спасли Булькоград»?</h2>
+<div class="grid3">
+  <div class="card"><h3>Все</h3><p>Различают атом и молекулу; примеры простых и сложных веществ.</p></div>
+  <div class="card yel"><h3>Большинство</h3><p>Моделируют O₂ и H₂O; сортируют карточки после аварии.</p></div>
+  <div class="card teal"><h3>Некоторые</h3><p>Объясняют O₂ vs H₂O; пишут паспорт пузырькового образца.</p></div>
 </div>
-</section><section class="slide " data-title="Простые">
-<span class="badge teal">Классификация</span>
-<h2>Простое вещество</h2>
+</section><section class="slide" data-title="Атом"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge">Понятие 1 · Губкин</span>
+<h2>Атом = один пузырь-кубик</h2>
+<div class="row">
+  <div><svg class="char" viewBox="0 0 120 140" width="120" height="140" aria-label="Губкин" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="60" cy="130" rx="40" ry="8" fill="#000" opacity=".15"/>
+  <rect x="25" y="30" width="70" height="90" rx="12" fill="#FFD93D" stroke="#E0B000" stroke-width="3"/>
+  <ellipse cx="40" cy="55" rx="7" ry="5" fill="#E8C840"/><ellipse cx="75" cy="48" rx="6" ry="4" fill="#E8C840"/>
+  <ellipse cx="48" cy="85" rx="8" ry="5" fill="#E8C840"/><ellipse cx="78" cy="78" rx="6" ry="4" fill="#E8C840"/>
+  <ellipse cx="42" cy="105" rx="5" ry="3.5" fill="#E8C840"/><ellipse cx="70" cy="100" rx="7" ry="4" fill="#E8C840"/>
+  <circle cx="48" cy="58" r="12" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="72" cy="58" r="12" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="50" cy="60" r="5" fill="#0A2A3A"/><circle cx="74" cy="60" r="5" fill="#0A2A3A"/>
+  <circle cx="52" cy="58" r="2" fill="#fff"/><circle cx="76" cy="58" r="2" fill="#fff"/>
+  <path d="M48 82 Q60 95 72 82" fill="none" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"/>
+  <rect x="35" y="20" width="50" height="14" rx="4" fill="#4ECDC4" stroke="#0A4D68" stroke-width="2"/>
+  <text x="60" y="31" text-anchor="middle" font-size="9" font-family="Trebuchet MS,sans-serif" font-weight="700" fill="#0A4D68">лаб.</text>
+</svg><div class="speech" style="max-width:280px;margin-top:8px">«Один пузырь — один атом!»</div></div>
+  <div class="card" style="flex:1">
+    <p style="font-size:30px;font-weight:800;color:var(--deep)">Атом — наименьшая частица химического элемента.</p>
+    <div style="margin-top:16px"><span class="atom Fe">Fe</span><span class="atom O">O</span><span class="atom H">H</span></div>
+    <p style="margin-top:12px">Ритуал: поднимите <b>один кулак</b> = атом!</p>
+  </div>
+</div>
+</section><section class="slide" data-title="Молекула"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge coral">Понятие 2 · Звёздик</span>
+<h2>Молекула = связка пузырей</h2>
+<div class="grid2">
+  <div class="card">
+    <p style="font-size:28px;font-weight:800;color:var(--deep)">Молекула — наименьшая частица вещества, способная существовать самостоятельно.</p>
+    <div class="chars" style="justify-content:flex-start;margin-top:10px"><svg class="char" viewBox="0 0 120 140" width="120" height="140" aria-label="Звёздик" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="60" cy="130" rx="36" ry="7" fill="#000" opacity=".15"/>
+  <polygon points="60,8 70,42 106,42 77,64 88,100 60,78 32,100 43,64 14,42 50,42" fill="#FF8FAB" stroke="#E06080" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="50" cy="52" r="9" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="70" cy="52" r="9" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="52" cy="54" r="4" fill="#0A2A3A"/><circle cx="72" cy="54" r="4" fill="#0A2A3A"/>
+  <path d="M50 68 Q60 78 70 68" fill="none" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="42" cy="62" r="4" fill="#FF6B6B" opacity=".5"/><circle cx="78" cy="62" r="4" fill="#FF6B6B" opacity=".5"/>
+</svg></div>
+  </div>
+  <div class="card yel">
+    <div class="mol"><span class="atom O">O</span><span class="bond"></span><span class="atom O">O</span><span class="pill">O₂</span></div>
+    <div class="mol" style="margin-top:14px"><span class="atom H">H</span><span class="bond"></span><span class="atom O">O</span><span class="bond"></span><span class="atom H">H</span><span class="pill">H₂O</span></div>
+    <p style="margin-top:12px;text-align:center">Ритуал: <b>два кулака вместе</b> = молекула!</p>
+  </div>
+</div>
+</section><section class="slide" data-title="Видео 1"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge">Видео · МЕКТЕП OnLine</span>
+<h2>Атомы и молекулы. Простые и сложные</h2>
+<div class="ytbox">
+  <iframe class="yt" src="https://www.youtube-nocookie.com/embed/Jaren6yQFgY?rel=0" title="МЕКТЕП OnLine" allowfullscreen loading="lazy"></iframe>
+  <p class="fallback">Запасная ссылка: <a href="https://www.youtube.com/watch?v=Jaren6yQFgY" target="_blank" rel="noopener">youtube.com/watch?v=Jaren6yQFgY</a></p>
+</div>
+</section><section class="slide" data-title="Простые"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge teal">Классификация · Крабич</span>
+<h2>Простое вещество — один вид атомов</h2>
 <div class="grid2">
   <div class="card teal">
-    <p class="big">Состоит из атомов <u>одного</u> вида.</p>
-    <p style="margin-top:12px">В мастерской: <b>все кубики одного цвета</b>.</p>
-    <div class="mol" style="margin-top:20px"><span class="atom O">O</span><span class="bond"></span><span class="atom O">O</span></div>
-    <p style="text-align:center;margin-top:8px">O₂ — кислород (простое)</p>
+    <p style="font-size:28px;font-weight:800">Все пузыри одного цвета!</p>
+    <div class="mol" style="margin-top:18px"><span class="atom O">O</span><span class="bond"></span><span class="atom O">O</span></div>
+    <p style="text-align:center;margin-top:8px">O₂ — кислород</p>
+    <div class="chars"><svg class="char" viewBox="0 0 140 120" width="140" height="120" aria-label="профессор Крабич" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="70" cy="110" rx="45" ry="7" fill="#000" opacity=".15"/>
+  <ellipse cx="28" cy="48" rx="18" ry="12" fill="#FF6B6B" stroke="#CC4444" stroke-width="2"/>
+  <ellipse cx="112" cy="48" rx="18" ry="12" fill="#FF6B6B" stroke="#CC4444" stroke-width="2"/>
+  <line x1="40" y1="48" x2="50" y2="55" stroke="#CC4444" stroke-width="3"/>
+  <line x1="100" y1="48" x2="90" y2="55" stroke="#CC4444" stroke-width="3"/>
+  <ellipse cx="70" cy="60" rx="38" ry="28" fill="#FF6B6B" stroke="#CC4444" stroke-width="3"/>
+  <circle cx="56" cy="55" r="12" fill="#E8F7FF" stroke="#0A4D68" stroke-width="3"/>
+  <circle cx="84" cy="55" r="12" fill="#E8F7FF" stroke="#0A4D68" stroke-width="3"/>
+  <line x1="68" y1="55" x2="72" y2="55" stroke="#0A4D68" stroke-width="3"/>
+  <circle cx="56" cy="56" r="4" fill="#0A2A3A"/><circle cx="84" cy="56" r="4" fill="#0A2A3A"/>
+  <path d="M58 72 Q70 82 82 72" fill="none" stroke="#0A2A3A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="48" y1="85" x2="42" y2="105" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="60" y1="88" x2="58" y2="108" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="80" y1="88" x2="82" y2="108" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="92" y1="85" x2="98" y2="105" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <rect x="55" y="28" width="30" height="10" rx="2" fill="#FFD93D" stroke="#E0B000" stroke-width="1.5"/>
+</svg></div>
   </div>
   <div class="card">
-    <h3>Примеры</h3>
-    <p><span class="pill">O₂ кислород</span><span class="pill">N₂ азот</span><span class="pill">H₂ водород</span></p>
-    <p><span class="pill">Fe железо</span><span class="pill">S сера</span><span class="pill">Cu медь</span></p>
-    <div class="rule">Металлы часто «живут» как атомы одного вида в кристалле — тоже простые вещества.</div>
+    <p><span class="pill">O₂</span><span class="pill">N₂</span><span class="pill">H₂</span><span class="pill">Fe</span><span class="pill">S</span></p>
+    <div class="speech" style="margin-top:16px">«Один вид атомов — простое вещество!»</div>
   </div>
 </div>
-</section><section class="slide " data-title="Сложные">
-<span class="badge terr">Классификация</span>
-<h2>Сложное вещество</h2>
+</section><section class="slide" data-title="Сложные"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge coral">Классификация</span>
+<h2>Сложное вещество — разные атомы</h2>
 <div class="grid2">
-  <div class="card accent">
-    <p class="big">Состоит из атомов <u>разных</u> видов.</p>
-    <p style="margin-top:12px">В мастерской: <b>кубики разных цветов</b> в одной фигурке.</p>
-    <div class="mol" style="margin-top:20px"><span class="atom H">H</span><span class="bond"></span><span class="atom O">O</span><span class="bond"></span><span class="atom H">H</span></div>
-    <p style="text-align:center;margin-top:8px">H₂O — вода (сложное)</p>
+  <div class="card coral">
+    <p style="font-size:28px;font-weight:800">Пузыри разных цветов в одной связке!</p>
+    <div class="mol" style="margin-top:18px"><span class="atom H">H</span><span class="bond"></span><span class="atom O">O</span><span class="bond"></span><span class="atom H">H</span></div>
+    <p style="text-align:center;margin-top:8px">H₂O — вода</p>
   </div>
   <div class="card">
-    <h3>Примеры</h3>
-    <p><span class="pill">H₂O вода</span><span class="pill">CO₂ углекислый газ</span></p>
-    <p><span class="pill">NaCl поваренная соль</span><span class="pill">C₆H₁₂O₆ глюкоза</span></p>
-    <div class="rule">Цвета разные → вещество сложное. Цвет один → простое.</div>
+    <p><span class="pill">H₂O</span><span class="pill">CO₂</span><span class="pill">NaCl</span></p>
+    <div class="speech" style="margin-top:16px">«Разные цвета → сложное вещество!»</div>
   </div>
 </div>
-</section><section class="slide " data-title="Таблица">
+</section><section class="slide" data-title="Таблица"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
 <span class="badge">Сводка</span>
-<h2>Сравнительная таблица агента</h2>
+<h2>Шпаргалка спасателя Булькограда</h2>
 <table class="cmp">
   <tr><th>Признак</th><th>Атом</th><th>Молекула</th></tr>
-  <tr><td>Что это?</td><td>частица элемента</td><td>частица вещества</td></tr>
-  <tr><td>Модель</td><td>один кубик</td><td>собранная фигурка</td></tr>
+  <tr><td>Что?</td><td>частица элемента</td><td>частица вещества</td></tr>
+  <tr><td>Модель</td><td>один пузырь</td><td>связка пузырей</td></tr>
   <tr><td>Пример</td><td>Fe, O, H</td><td>O₂, H₂O, CO₂</td></tr>
 </table>
-<div style="height:18px"></div>
+<div style="height:16px"></div>
 <table class="cmp">
-  <tr><th>Признак</th><th>Простое вещество</th><th>Сложное вещество</th></tr>
+  <tr><th>Признак</th><th>Простое</th><th>Сложное</th></tr>
   <tr><td>Состав</td><td>атомы одного вида</td><td>атомы разных видов</td></tr>
-  <tr><td>Модель</td><td>один цвет кубиков</td><td>разные цвета</td></tr>
+  <tr><td>Модель</td><td>один цвет</td><td>разные цвета</td></tr>
   <tr><td>Пример</td><td>O₂, Fe, S, N₂</td><td>H₂O, CO₂, NaCl</td></tr>
 </table>
-</section><section class="slide " data-title="Видео 2">
-<span class="badge amber">Видео · коротко</span>
+</section><section class="slide" data-title="Видео 2"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge">Видео · коротко</span>
 <h2>Атомы и молекулы за минуту</h2>
 <div class="grid2">
   <div class="ytbox">
-    <iframe class="yt" style="max-height:420px" src="https://www.youtube-nocookie.com/embed/ugkdkI1c0P0?rel=0" title="Атомы и молекулы за минуту" allowfullscreen loading="lazy"></iframe>
-    <p class="fallback" style="color:#fff"><a href="https://www.youtube.com/watch?v=ugkdkI1c0P0" target="_blank" rel="noopener">Открыть на YouTube</a></p>
+    <iframe class="yt" style="max-height:400px" src="https://www.youtube-nocookie.com/embed/ugkdkI1c0P0?rel=0" title="За минуту" allowfullscreen loading="lazy"></iframe>
+    <p class="fallback"><a href="https://www.youtube.com/watch?v=ugkdkI1c0P0" target="_blank" rel="noopener">Открыть на YouTube</a></p>
   </div>
   <div class="card">
-    <h3>Ещё ролики (проверены oEmbed)</h3>
-    <p class="pill">Физика 2–6 кл. — QHBhmQF-iWE</p>
-    <p><a href="https://www.youtube.com/watch?v=QHBhmQF-iWE" target="_blank" rel="noopener">youtube.com/watch?v=QHBhmQF-iWE</a></p>
-    <p class="pill" style="margin-top:12px">Химия урок 1 — NTSBdHoZbNY</p>
-    <p><a href="https://www.youtube.com/watch?v=NTSBdHoZbNY" target="_blank" rel="noopener">youtube.com/watch?v=NTSBdHoZbNY</a></p>
-    <div class="timer" data-sec="60" style="margin-top:20px"><span class="tv">01:00</span><button class="tgo" type="button">▶</button><button class="trst" type="button">↺</button></div>
+    <h3>Ещё ролики (oEmbed ✓)</h3>
+    <p class="pill">QHBhmQF-iWE</p>
+    <p><a href="https://www.youtube.com/watch?v=QHBhmQF-iWE" target="_blank" rel="noopener">Физика 2–6 кл.</a></p>
+    <p class="pill" style="margin-top:10px">NTSBdHoZbNY</p>
+    <p><a href="https://www.youtube.com/watch?v=NTSBdHoZbNY" target="_blank" rel="noopener">Химия урок 1</a></p>
+    <div class="timer" data-sec="60" style="margin-top:16px"><span class="tv">01:00</span><button class="tgo" type="button">▶</button><button class="trst" type="button">↺</button></div>
   </div>
 </div>
-</section><section class="slide " data-title="Мастерская">
-<span class="badge terr">Практика · 8 мин</span>
-<h2>Мастерская моделей</h2>
-<div class="row" style="align-items:center;margin-bottom:12px">
+</section><section class="slide" data-title="Мастерская"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge coral">Практика · 8 мин</span>
+<h2>Мастерская Губкина</h2>
+<div class="row" style="margin-bottom:12px">
   <div class="timer" data-sec="480"><span class="tv">08:00</span><button class="tgo" type="button">▶ старт</button><button class="trst" type="button">↺</button></div>
-  <p class="sub" style="margin-left:16px">Пластилин / шарики по легенде цветов · паспорт в раздатке</p>
+  <p class="sub" style="margin-left:12px">Пластилин по легенде · паспорт в раздатке</p>
+  <svg class="char" viewBox="0 0 120 140" width="120" height="140" aria-label="Губкин" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="60" cy="130" rx="40" ry="8" fill="#000" opacity=".15"/>
+  <rect x="25" y="30" width="70" height="90" rx="12" fill="#FFD93D" stroke="#E0B000" stroke-width="3"/>
+  <ellipse cx="40" cy="55" rx="7" ry="5" fill="#E8C840"/><ellipse cx="75" cy="48" rx="6" ry="4" fill="#E8C840"/>
+  <ellipse cx="48" cy="85" rx="8" ry="5" fill="#E8C840"/><ellipse cx="78" cy="78" rx="6" ry="4" fill="#E8C840"/>
+  <ellipse cx="42" cy="105" rx="5" ry="3.5" fill="#E8C840"/><ellipse cx="70" cy="100" rx="7" ry="4" fill="#E8C840"/>
+  <circle cx="48" cy="58" r="12" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="72" cy="58" r="12" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="50" cy="60" r="5" fill="#0A2A3A"/><circle cx="74" cy="60" r="5" fill="#0A2A3A"/>
+  <circle cx="52" cy="58" r="2" fill="#fff"/><circle cx="76" cy="58" r="2" fill="#fff"/>
+  <path d="M48 82 Q60 95 72 82" fill="none" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"/>
+  <rect x="35" y="20" width="50" height="14" rx="4" fill="#4ECDC4" stroke="#0A4D68" stroke-width="2"/>
+  <text x="60" y="31" text-anchor="middle" font-size="9" font-family="Trebuchet MS,sans-serif" font-weight="700" fill="#0A4D68">лаб.</text>
+</svg>
 </div>
 <div class="grid3">
   <div class="card"><h3>1. Кислород</h3><div class="mol"><span class="atom O">O</span><span class="bond"></span><span class="atom O">O</span></div><p>простое · O₂</p></div>
-  <div class="card accent"><h3>2. Вода</h3><div class="mol"><span class="atom H">H</span><span class="bond"></span><span class="atom O">O</span><span class="bond"></span><span class="atom H">H</span></div><p>сложное · H₂O</p></div>
-  <div class="card indigo"><h3>★ CO₂</h3><div class="mol"><span class="atom O">O</span><span class="bond"></span><span class="atom C">C</span><span class="bond"></span><span class="atom O">O</span></div><p>сложное · для сильных</p></div>
+  <div class="card yel"><h3>2. Вода</h3><div class="mol"><span class="atom H">H</span><span class="bond"></span><span class="atom O">O</span><span class="bond"></span><span class="atom H">H</span></div><p>сложное · H₂O</p></div>
+  <div class="card teal"><h3>★ CO₂ / NaCl</h3><div class="mol"><span class="atom O">O</span><span class="bond"></span><span class="atom C">C</span><span class="bond"></span><span class="atom O">O</span></div><p>сложное · доп.</p></div>
 </div>
-<div class="rule" style="margin-top:16px">Легенда: H синий · O красный · C серый · N фиолетовый · Fe коричневый · S жёлтый</div>
-</section><section class="slide " data-title="Сортировка">
-<span class="badge">Игра на слайде</span>
-<h2>Док Кубиконов — перетащи карточки</h2>
-<p class="sub" style="margin-bottom:8px">Перетащи вещества в нужный карман. Затем нажми «Проверить».</p>
+</section><section class="slide" data-title="Сортировка"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge">Игра</span>
+<h2>Док Булькограда — перетащи карточки</h2>
+<p class="sub" style="margin-bottom:8px">После аварии всё перемешалось. Разложи по карманам!</p>
 <div id="sortPool" style="margin-bottom:10px"></div>
-<div class="sort-board">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
   <div class="dropzone" id="dzSimple" data-kind="simple"><h4>📦 ПРОСТЫЕ</h4></div>
   <div class="dropzone" id="dzComplex" data-kind="complex"><h4>📦 СЛОЖНЫЕ</h4></div>
 </div>
 <div style="margin-top:12px;display:flex;gap:12px;align-items:center">
-  <button type="button" id="sortCheck" style="appearance:none;border:0;background:var(--terr);color:#fff;font-weight:800;font-size:20px;padding:12px 20px;border-radius:12px;cursor:pointer">Проверить</button>
-  <button type="button" id="sortReset" style="appearance:none;border:2px solid var(--indigo);background:#fff;color:var(--indigo);font-weight:700;font-size:18px;padding:10px 16px;border-radius:12px;cursor:pointer">Сброс</button>
+  <button type="button" id="sortCheck" style="appearance:none;border:3px solid #fff;background:var(--coral);color:#fff;font-weight:800;font-size:20px;padding:12px 20px;border-radius:14px;cursor:pointer">Проверить</button>
+  <button type="button" id="sortReset" style="appearance:none;border:3px solid #fff;background:var(--yel);color:var(--deep);font-weight:800;font-size:18px;padding:10px 16px;border-radius:14px;cursor:pointer">Сброс</button>
   <span class="score" id="sortScore"></span>
 </div>
-</section><section class="slide " data-title="Квиз">
-<span class="badge amber">Квиз · мгновенная ОС</span>
-<h2>Допрос образцов</h2>
+</section><section class="slide" data-title="Квиз"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge">Квиз Крабича</span>
+<h2>Допрос пузырьковых образцов</h2>
 <div id="quizBox" class="card"></div>
-</section><section class="slide " data-title="Рефлексия">
-<span class="badge">Финиш · 42–45 мин</span>
-<h2>Светофор Кубиконов</h2>
+</section><section class="slide" data-title="Рефлексия"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
+<span class="badge teal">Финиш</span>
+<h2>Пузырьковый светофор</h2>
 <div class="grid3">
-  <div class="card" style="background:#D4EDDA;border-color:#1B7A4E;text-align:center"><h3>🟢 Уверен</h3><p>Сам объясню однокласснику</p></div>
-  <div class="card" style="background:#FFF3CD;border-color:#F0A202;text-align:center"><h3>🟡 Почти</h3><p>Нужна ещё одна попытка</p></div>
-  <div class="card" style="background:#F8D7DA;border-color:#B42318;text-align:center"><h3>🔴 Помощь</h3><p>Прошу подсказку учителя</p></div>
+  <div class="card" style="background:#D4EDDA;text-align:center"><h3>🟢 Уверен</h3><p>Сам объясню</p></div>
+  <div class="card yel" style="text-align:center"><h3>🟡 Почти</h3><p>Ещё попытка</p></div>
+  <div class="card coral" style="text-align:center"><h3>🔴 Помощь</h3><p>Зову Губкина</p></div>
 </div>
-<div class="card accent" style="margin-top:18px">
-  <h3>Домашнее задание (выбери уровень)</h3>
-  <p><b>А</b> — 5 карточек «простое / сложное» · <b>В</b> — модель из подручных материалов · <b>С</b> — рассказ «День атома в Кубиконах»</p>
-  <p class="sub" style="margin-top:8px">Сайт: https://kaplunovskaia5-ai.github.io/atoms-molecules6/</p>
+<div class="card" style="margin-top:16px">
+  <h3>ДЗ</h3>
+  <p><b>А</b> — 5 карточек · <b>В</b> — модель · <b>С</b> — мини-комикс «День в Булькограде»</p>
+  <p class="sub" style="color:var(--deep);margin-top:8px">Сайт: https://kaplunovskaia5-ai.github.io/atoms-molecules6/</p>
 </div>
-</section><section class="slide " data-title="Ресурсы">
+<div class="chars" style="margin-top:8px"><svg class="char" viewBox="0 0 120 140" width="120" height="140" aria-label="Губкин" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="60" cy="130" rx="40" ry="8" fill="#000" opacity=".15"/>
+  <rect x="25" y="30" width="70" height="90" rx="12" fill="#FFD93D" stroke="#E0B000" stroke-width="3"/>
+  <ellipse cx="40" cy="55" rx="7" ry="5" fill="#E8C840"/><ellipse cx="75" cy="48" rx="6" ry="4" fill="#E8C840"/>
+  <ellipse cx="48" cy="85" rx="8" ry="5" fill="#E8C840"/><ellipse cx="78" cy="78" rx="6" ry="4" fill="#E8C840"/>
+  <ellipse cx="42" cy="105" rx="5" ry="3.5" fill="#E8C840"/><ellipse cx="70" cy="100" rx="7" ry="4" fill="#E8C840"/>
+  <circle cx="48" cy="58" r="12" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="72" cy="58" r="12" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="50" cy="60" r="5" fill="#0A2A3A"/><circle cx="74" cy="60" r="5" fill="#0A2A3A"/>
+  <circle cx="52" cy="58" r="2" fill="#fff"/><circle cx="76" cy="58" r="2" fill="#fff"/>
+  <path d="M48 82 Q60 95 72 82" fill="none" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"/>
+  <rect x="35" y="20" width="50" height="14" rx="4" fill="#4ECDC4" stroke="#0A4D68" stroke-width="2"/>
+  <text x="60" y="31" text-anchor="middle" font-size="9" font-family="Trebuchet MS,sans-serif" font-weight="700" fill="#0A4D68">лаб.</text>
+</svg><svg class="char" viewBox="0 0 120 140" width="120" height="140" aria-label="Звёздик" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="60" cy="130" rx="36" ry="7" fill="#000" opacity=".15"/>
+  <polygon points="60,8 70,42 106,42 77,64 88,100 60,78 32,100 43,64 14,42 50,42" fill="#FF8FAB" stroke="#E06080" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="50" cy="52" r="9" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="70" cy="52" r="9" fill="#fff" stroke="#0A2A3A" stroke-width="2"/>
+  <circle cx="52" cy="54" r="4" fill="#0A2A3A"/><circle cx="72" cy="54" r="4" fill="#0A2A3A"/>
+  <path d="M50 68 Q60 78 70 68" fill="none" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="42" cy="62" r="4" fill="#FF6B6B" opacity=".5"/><circle cx="78" cy="62" r="4" fill="#FF6B6B" opacity=".5"/>
+</svg><svg class="char" viewBox="0 0 140 120" width="140" height="120" aria-label="профессор Крабич" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="70" cy="110" rx="45" ry="7" fill="#000" opacity=".15"/>
+  <ellipse cx="28" cy="48" rx="18" ry="12" fill="#FF6B6B" stroke="#CC4444" stroke-width="2"/>
+  <ellipse cx="112" cy="48" rx="18" ry="12" fill="#FF6B6B" stroke="#CC4444" stroke-width="2"/>
+  <line x1="40" y1="48" x2="50" y2="55" stroke="#CC4444" stroke-width="3"/>
+  <line x1="100" y1="48" x2="90" y2="55" stroke="#CC4444" stroke-width="3"/>
+  <ellipse cx="70" cy="60" rx="38" ry="28" fill="#FF6B6B" stroke="#CC4444" stroke-width="3"/>
+  <circle cx="56" cy="55" r="12" fill="#E8F7FF" stroke="#0A4D68" stroke-width="3"/>
+  <circle cx="84" cy="55" r="12" fill="#E8F7FF" stroke="#0A4D68" stroke-width="3"/>
+  <line x1="68" y1="55" x2="72" y2="55" stroke="#0A4D68" stroke-width="3"/>
+  <circle cx="56" cy="56" r="4" fill="#0A2A3A"/><circle cx="84" cy="56" r="4" fill="#0A2A3A"/>
+  <path d="M58 72 Q70 82 82 72" fill="none" stroke="#0A2A3A" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="48" y1="85" x2="42" y2="105" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="60" y1="88" x2="58" y2="108" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="80" y1="88" x2="82" y2="108" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <line x1="92" y1="85" x2="98" y2="105" stroke="#CC4444" stroke-width="3" stroke-linecap="round"/>
+  <rect x="55" y="28" width="30" height="10" rx="2" fill="#FFD93D" stroke="#E0B000" stroke-width="1.5"/>
+</svg></div>
+</section><section class="slide" data-title="Ресурсы"><div class="bubbles" aria-hidden="true"><i style="left:83%;width:13px;height:13px;animation-duration:8.3s;animation-delay:-2.8s"></i><i style="left:30%;width:14px;height:14px;animation-duration:15.4s;animation-delay:-6.8s"></i><i style="left:71%;width:12px;height:12px;animation-duration:13.9s;animation-delay:-0.3s"></i><i style="left:13%;width:16px;height:16px;animation-duration:10.3s;animation-delay:-6.0s"></i><i style="left:73%;width:16px;height:16px;animation-duration:15.2s;animation-delay:-7.0s"></i><i style="left:55%;width:17px;height:17px;animation-duration:12.5s;animation-delay:-2.8s"></i><i style="left:2%;width:34px;height:34px;animation-duration:16.1s;animation-delay:-7.0s"></i><i style="left:45%;width:18px;height:18px;animation-duration:9.6s;animation-delay:-9.6s"></i><i style="left:45%;width:13px;height:13px;animation-duration:8.9s;animation-delay:-1.0s"></i><i style="left:46%;width:29px;height:29px;animation-duration:10.6s;animation-delay:-0.4s"></i><i style="left:60%;width:27px;height:27px;animation-duration:9.2s;animation-delay:-9.2s"></i><i style="left:12%;width:27px;height:27px;animation-duration:10.9s;animation-delay:-6.3s"></i></div>
 <span class="badge">Учителю</span>
-<h2>Ресурсы и навигация</h2>
+<h2>Навигация и ресурсы</h2>
 <div class="grid2">
   <div class="card">
     <h3>Клавиши</h3>
     <p>→ ← пробел — слайды · <b>O</b> — содержание · <b>F</b> — полный экран</p>
-    <h3 style="margin-top:16px">Файлы пакета</h3>
-    <p>КСП · раздатка · сайт · QR · эта презентация</p>
   </div>
-  <div class="card indigo">
-    <h3>Видео (youtube-nocookie, oEmbed ✓)</h3>
+  <div class="card yel">
+    <h3>Видео (youtube-nocookie)</h3>
     <p>Jaren6yQFgY · ugkdkI1c0P0 · QHBhmQF-iWE · NTSBdHoZbNY</p>
-    <h3 style="margin-top:16px">Оценивание</h3>
-    <p>Дескрипторы A–D · макс. 10 б · ключ в PDF раздатке</p>
+    <p style="margin-top:8px;font-size:18px">Дескрипторы A–D · макс. 10 б · ключ в PDF</p>
   </div>
 </div>
-<p class="footmeta">Хмель С. С. · КГУ «Гимназия №1», Караганда · «Город Кубиконов»</p>
+<p style="margin-top:auto;color:#E8F7FF;font-size:18px">Хмель С. С. · КГУ «Гимназия №1» · Булькоград — оригинальная концепция</p>
 </section>
 <nav class="nav">
-  <button type="button" id="nPrev" title="Назад">◀</button>
-  <button type="button" id="nNext" title="Вперёд">▶</button>
-  <button type="button" id="nToc" title="Содержание">☰</button>
-  <button type="button" id="nFs" title="Полный экран">⛶</button>
+  <button type="button" id="nPrev">◀</button>
+  <button type="button" id="nNext">▶</button>
+  <button type="button" id="nToc">☰</button>
+  <button type="button" id="nFs">⛶</button>
   <div class="grow"></div>
   <div id="barwrap"><div id="bar"></div></div>
   <div id="counter">1 / 1</div>
 </nav>
-<div id="toc"><div class="panel"><h2 style="color:var(--terr)">Содержание</h2><ol></ol></div></div>
+<div id="toc"><div class="panel"><h2 style="color:var(--deep)">Содержание</h2><ol></ol></div></div>
 </div>
 <script>
 
@@ -333,18 +440,15 @@ const fmt = (s) => {
   s = Math.max(0, Math.round(s));
   return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
 };
-
 const stage = $("#stage");
 const slides = $$(".slide");
 let cur = 0;
-
 function fit() {
   const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
   stage.style.transform = "translate(" + ((window.innerWidth - 1920 * s) / 2) + "px," + ((window.innerHeight - 1080 * s) / 2) + "px) scale(" + s + ")";
 }
 window.addEventListener("resize", fit);
 fit();
-
 function go(i) {
   i = Math.max(0, Math.min(slides.length - 1, i));
   slides[cur].classList.remove("active");
@@ -356,7 +460,6 @@ function go(i) {
   $$("#toc li").forEach((li, k) => li.classList.toggle("cur", k === cur));
 }
 window.go = go;
-
 const tocOl = $("#toc ol");
 slides.forEach((s, i) => {
   const li = document.createElement("li");
@@ -364,16 +467,12 @@ slides.forEach((s, i) => {
   li.onclick = () => { go(i); $("#toc").classList.remove("on"); };
   tocOl.appendChild(li);
 });
-
 function fs() {
   if (!document.fullscreenElement) {
     const r = document.documentElement.requestFullscreen;
     if (r) document.documentElement.requestFullscreen().catch(() => {});
-  } else if (document.exitFullscreen) {
-    document.exitFullscreen();
-  }
+  } else if (document.exitFullscreen) document.exitFullscreen();
 }
-
 window.addEventListener("keydown", (e) => {
   const k = e.key;
   if (["ArrowRight", "PageDown", " ", "ArrowDown"].includes(k)) { e.preventDefault(); go(cur + 1); }
@@ -384,37 +483,25 @@ window.addEventListener("keydown", (e) => {
   else if (k.length === 1 && "fFаА".includes(k)) fs();
   else if (k === "Escape") $("#toc").classList.remove("on");
 });
-
 $("#nPrev").onclick = () => go(cur - 1);
 $("#nNext").onclick = () => go(cur + 1);
 $("#nToc").onclick = () => $("#toc").classList.toggle("on");
 $("#nFs").onclick = fs;
 $("#toc").onclick = (e) => { if (e.target.id === "toc") e.target.classList.remove("on"); };
-
 $$(".timer").forEach((t) => {
   const T = Number(t.dataset.sec);
-  let left = T;
-  let iv = null;
-  const v = $(".tv", t);
-  const b = $(".tgo", t);
-  const r = $(".trst", t);
+  let left = T; let iv = null;
+  const v = $(".tv", t); const b = $(".tgo", t); const r = $(".trst", t);
   const show = () => { v.textContent = fmt(left); };
   show();
   const stop = () => { clearInterval(iv); iv = null; t.classList.remove("run"); b.textContent = b.textContent.indexOf("старт") >= 0 ? "▶ старт" : "▶"; };
   b.onclick = () => {
     if (iv) { stop(); return; }
-    t.classList.add("run");
-    b.textContent = "❚❚";
-    iv = setInterval(() => {
-      left -= 1;
-      show();
-      if (left <= 0) { stop(); left = 0; show(); }
-    }, 1000);
+    t.classList.add("run"); b.textContent = "❚❚";
+    iv = setInterval(() => { left -= 1; show(); if (left <= 0) { stop(); left = 0; show(); } }, 1000);
   };
   if (r) r.onclick = () => { stop(); left = T; show(); };
 });
-
-/* Sorting game */
 const SORT_ITEMS = [
   { id: "O2", label: "O₂", kind: "simple" },
   { id: "Fe", label: "Fe", kind: "simple" },
@@ -425,111 +512,70 @@ const SORT_ITEMS = [
   { id: "NaCl", label: "NaCl", kind: "complex" },
   { id: "H2", label: "H₂", kind: "simple" }
 ];
-const pool = $("#sortPool");
-const dzS = $("#dzSimple");
-const dzC = $("#dzComplex");
+const pool = $("#sortPool"); const dzS = $("#dzSimple"); const dzC = $("#dzComplex");
 const placements = {};
-
 function makeDrag(item) {
   const el = document.createElement("span");
-  el.className = "drag";
-  el.draggable = true;
-  el.textContent = item.label;
-  el.dataset.id = item.id;
-  el.addEventListener("dragstart", (e) => {
-    e.dataTransfer.setData("text/plain", item.id);
-    e.dataTransfer.effectAllowed = "move";
-  });
+  el.className = "drag"; el.draggable = true; el.textContent = item.label; el.dataset.id = item.id;
+  el.addEventListener("dragstart", (e) => { e.dataTransfer.setData("text/plain", item.id); e.dataTransfer.effectAllowed = "move"; });
   return el;
 }
-
 function renderPool() {
   pool.innerHTML = "";
-  SORT_ITEMS.forEach((it) => {
-    if (!placements[it.id]) pool.appendChild(makeDrag(it));
-  });
+  SORT_ITEMS.forEach((it) => { if (!placements[it.id]) pool.appendChild(makeDrag(it)); });
 }
-
 function clearZones() {
-  [dzS, dzC].forEach((z) => {
-    Array.from(z.querySelectorAll(".drag")).forEach((n) => n.remove());
-  });
+  [dzS, dzC].forEach((z) => { Array.from(z.querySelectorAll(".drag")).forEach((n) => n.remove()); });
 }
-
 function placeChip(id, zone) {
   const item = SORT_ITEMS.find((x) => x.id === id);
   if (!item || !zone) return;
   placements[id] = zone.dataset.kind;
-  const chip = makeDrag(item);
-  chip.draggable = false;
-  chip.style.cursor = "default";
-  zone.appendChild(chip);
-  renderPool();
+  const chip = makeDrag(item); chip.draggable = false; chip.style.cursor = "default";
+  zone.appendChild(chip); renderPool();
 }
-
 [dzS, dzC].forEach((z) => {
   z.addEventListener("dragover", (e) => { e.preventDefault(); z.classList.add("over"); });
   z.addEventListener("dragleave", () => z.classList.remove("over"));
   z.addEventListener("drop", (e) => {
-    e.preventDefault();
-    z.classList.remove("over");
+    e.preventDefault(); z.classList.remove("over");
     const id = e.dataTransfer.getData("text/plain");
     if (placements[id]) return;
     placeChip(id, z);
   });
 });
-
-$("#sortReset").onclick = () => {
-  Object.keys(placements).forEach((k) => delete placements[k]);
-  clearZones();
-  renderPool();
-  $("#sortScore").textContent = "";
-};
+$("#sortReset").onclick = () => { Object.keys(placements).forEach((k) => delete placements[k]); clearZones(); renderPool(); $("#sortScore").textContent = ""; };
 $("#sortCheck").onclick = () => {
-  let ok = 0;
-  let total = 0;
-  SORT_ITEMS.forEach((it) => {
-    if (placements[it.id]) {
-      total += 1;
-      if (placements[it.id] === it.kind) ok += 1;
-    }
-  });
+  let ok = 0; let total = 0;
+  SORT_ITEMS.forEach((it) => { if (placements[it.id]) { total += 1; if (placements[it.id] === it.kind) ok += 1; } });
   const miss = SORT_ITEMS.length - total;
-  $("#sortScore").textContent = "Верно: " + ok + " / " + SORT_ITEMS.length + (miss ? " (ещё не разложено: " + miss + ")" : "");
+  $("#sortScore").textContent = "Верно: " + ok + " / " + SORT_ITEMS.length + (miss ? " (ещё: " + miss + ")" : " 🎉");
 };
 renderPool();
-
-/* Quiz */
 const QUIZ = [
   { q: "Молекула воды состоит из…", opts: ["только атомов H", "атомов H и O", "только атомов O", "атомов Fe"], a: 1 },
   { q: "O₂ — это…", opts: ["атом", "сложное вещество", "простое вещество", "смесь"], a: 2 },
   { q: "Наименьшая частица химического элемента — это…", opts: ["молекула", "атом", "тело", "раствор"], a: 1 },
   { q: "NaCl — сложное вещество, потому что…", opts: ["оно твёрдое", "состоит из атомов разных элементов", "оно белое", "растворимо в воде"], a: 1 },
-  { q: "Два одинаковых кубика, соединённых вместе — модель…", opts: ["атома", "молекулы простого вещества", "сложного вещества", "смеси"], a: 1 }
+  { q: "Два одинаковых пузыря вместе — модель…", opts: ["атома", "молекулы простого вещества", "сложного вещества", "смеси"], a: 1 }
 ];
-let qi = 0;
-let qScore = 0;
-const quizBox = $("#quizBox");
-
+let qi = 0; let qScore = 0; const quizBox = $("#quizBox");
 function renderQuiz() {
   if (qi >= QUIZ.length) {
-    quizBox.innerHTML = "<p class='big'>Итог квиза: " + qScore + " / " + QUIZ.length + "</p><p class='sub'>Дескриптор D: ≥4 верных → 2 б; 3 верных → 1 б.</p><button type='button' class='qbtn' id='quizAgain'>Пройти ещё раз</button>";
+    quizBox.innerHTML = "<p style='font-size:30px;font-weight:800'>Итог: " + qScore + " / " + QUIZ.length + "</p><p>Дескриптор D: ≥4 → 2 б; 3 → 1 б.</p><button type='button' class='qbtn' id='quizAgain'>Ещё раз</button>";
     const again = $("#quizAgain");
     if (again) again.onclick = () => { qi = 0; qScore = 0; renderQuiz(); };
     return;
   }
   const item = QUIZ[qi];
-  let html = "<p class='sub'>Вопрос " + (qi + 1) + " / " + QUIZ.length + " · счёт: " + qScore + "</p>";
+  let html = "<p>Вопрос " + (qi + 1) + " / " + QUIZ.length + " · счёт: " + qScore + "</p>";
   html += "<h3 style='margin:8px 0 12px'>" + item.q + "</h3>";
-  item.opts.forEach((o, i) => {
-    html += "<button type='button' class='qbtn' data-i='" + i + "'>" + String.fromCharCode(1072 + i) + ") " + o + "</button>";
-  });
+  item.opts.forEach((o, i) => { html += "<button type='button' class='qbtn' data-i='" + i + "'>" + String.fromCharCode(1072 + i) + ") " + o + "</button>"; });
   html += "<div class='feedback' id='qfb'></div>";
   quizBox.innerHTML = html;
   $$(".qbtn", quizBox).forEach((btn) => {
     btn.onclick = () => {
       const choice = Number(btn.dataset.i);
-      const correct = choice === item.a;
       $$(".qbtn", quizBox).forEach((b) => {
         b.disabled = true;
         const bi = Number(b.dataset.i);
@@ -537,14 +583,13 @@ function renderQuiz() {
         else if (bi === choice) b.classList.add("bad");
       });
       const fb = $("#qfb");
-      if (correct) { qScore += 1; fb.textContent = "Верно! Кубик на месте."; fb.style.color = "var(--ok)"; }
-      else { fb.textContent = "Почти. Верный ответ выделен зелёным."; fb.style.color = "var(--bad)"; }
+      if (choice === item.a) { qScore += 1; fb.textContent = "Верно! Пузырь на месте ✨"; fb.style.color = "var(--ok)"; }
+      else { fb.textContent = "Почти. Верный ответ зелёный."; fb.style.color = "var(--bad)"; }
       setTimeout(() => { qi += 1; renderQuiz(); }, 900);
     };
   });
 }
 renderQuiz();
-
 const hash = parseInt((location.hash || "#1").slice(1), 10);
 go(isNaN(hash) ? 0 : hash - 1);
 
